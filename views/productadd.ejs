@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <%- include('./partials/header') %>
+    <style>
+    
+
+    form {
+        width: 600px;
+        margin-top: 130px;
+        margin-left: 50px;
+        padding:30px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="number"],
+    form textarea {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    form input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <header>
+        <nav class="navbar mb-4 navbar-expand-lg navbar-light bg-light position-fixed overflow-hidden" style="width: 100%">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand ms-4 fw-bold" href="#">Shop Site</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Welcome Admin <span class="sr-only"></span></a>
+              </li>
+              
+            </ul>
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/dashboard">Dashboard<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">Services<span class="sr-only"></span></a>
+                </li>
+            
+        
+              <li class="nav-item active">
+                <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
+              </li>
+        
+              
+            </ul>
+           
+         
+          </div>
+        </nav>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <form action="/admin/productadd" method="post" enctype="multipart/form-data">
+                        <h2 class="mb-3">Add New Product</h2>
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" placeholder="Enter product Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="price" class="form-control" placeholder="Product price" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <select  name="category" class="form-control" required>
+                              <option class="text-muted">Select category</option>
+                              <option value="fashion">Fashion</option>
+                              <option value="electronics">Electronincs</option>
+                              <option value="medicine">Medicine</option>
+                              <option value="furniture">Furniture</option>
+                              <option value="sports">Sports</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="details" class="form-control" placeholder="Product Details" rows="3"></textarea>
+                        </div>
+                        <div class="form-group d-flex justify-content-between" >
+                            <input type="file" name="productimage" class="form-control-file" required>
+                            <button type="submit" class="btn btn-primary mt-4 right-0">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

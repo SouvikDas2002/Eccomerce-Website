@@ -1,0 +1,104 @@
+<!doctype html>
+<%- include('./partials/header') %>
+  <body>
+   <header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed overflow-hidden" style="width: 100%">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand ms-4 fw-bold" href="#"><span style="font-family: lora,serif;">Shop Site</span></a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+      </li>
+      
+    </ul>
+    <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
+        <!-- <li class="nav-item active">
+          <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
+        </li> -->
+        <li class="nav-item active">
+          <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/login"><span class="">Login</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/signup"><span class="">Register</span></a>
+        </li>
+    </ul>
+   
+ 
+  </div>
+</nav>
+</header>
+<main>
+
+  <div style="width:100%; height: 550px; object-fit: cover;" >
+    <div class="d-flex flex-column align-items-center" style="font-family: Lora, serif;color: #444;">
+      <span class='position-absolute fs-5' style="top: 10px;">Shopping Karo Dil Se</span>
+      <span class='position-absolute fs-1' style="top: 25px;">ShopSite</span>
+    </div>
+    <img src="https://images.pexels.com/photos/5418899/pexels-photo-5418899.jpeg?auto=compress&cs=tinysrgb&w=940&h=550&dpr=4" height="100%" width="100%" alt="">
+  </div>
+
+  <!-- categories -->
+  
+<div class="d-flex flex-column pt-4 align-items-center">
+  <div class="w-75">
+    <ul class="list-unstyled d-flex justify-content-between">
+      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none; "><img src="https://thumbs.dreamstime.com/b/fashion-pretty-cool-youngwith-shopping-bags-wearing-black-hat-white-pants-over-colorful-orange-background-79063329.jpg" width="100%" height="100%" style="border-radius: 50px;"></div>
+        <div class="ms-4" href="#"> Fashion</div></a>
+      </li>
+      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/premium-photo/futuristic-gadgets-showcase-lineup-sleek-modern-technological-devices_977107-682.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-2" href="#"> Electronincs</div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/free-vector/medical-design-poster-with-original-medicinal-capsule-consisting-red-white-parts-different-medical-objects_1284-53615.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-3" href="#"> Medicine </div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://media.istockphoto.com/id/1415799772/photo/home-interior-with-vintage-furniture.webp?b=1&s=170667a&w=0&k=20&c=7n4U6vnFtYrX-FE84s2GXIzqkBIkvPTAE2uG8mB8MLA=" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-3" href="#"> Furniture </div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://t4.ftcdn.net/jpg/00/17/33/59/360_F_17335975_wezHs72ORL3CY2dFLVi9XtLx4XDOgZBT.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-4"> Sports</div></a></li>
+    </ul>
+  </div>
+  </div>
+
+  <div class=" py-5  container">
+    <div class="container ">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+
+        <% products.forEach(item=>{ %>
+
+            <div class="col">
+                <div class="shadow-sm">
+                    <a href="/login"><img src="<%= item.productimage %>" width="100%" height="250" style="background-size: cover;border-radius: 5px;"></a>
+                    <div class="card-body">
+                      <span class="d-flex justify-content-between">
+                        <h6 class="card-text ms-3 mt-2"><%= item.name %></h6>
+                        <h6 class="card-text me-4 mt-2">Rs.<%= item.price %></h6>
+                        </span>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group mb-4 ms-3 mt-2">
+                              <a href="/productdetails/<%= item.id %>"> <button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+                                
+                            </div>
+                            <small class="text-body-secondary"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+    
+      </div>
+    <!-- </div> -->
+  </div>
+
+</main>
+
+<%-include('./partials/footer')  %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    </body>
+</html>

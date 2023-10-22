@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<%- include('./partials/header') %>
+<style>
+  /* styles.css */
+
+.album {
+  padding-top: 5rem;
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.card-text {
+  margin-bottom: 0;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  margin-right: 0.5rem;
+}
+
+.text-body-secondary {
+  color: #6c757d;
+}
+
+</style>
+<body>
+    <header >
+        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed overflow-hidden" style="width: 100%">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand ms-4 fw-bold" href="#">Shop Site</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+              </li>
+              
+            </ul>
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/productadd">All Products<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/dashboard">Dashboard<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/profile">Profile<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/profile">About<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/profile">Help<span class="sr-only"></span></a>
+                </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
+              </li>
+              
+            </ul>
+           
+         
+          </div>
+        </nav>
+        </header>
+
+
+    <div class="pt-5" style="display: flex;justify-content: space-around;">
+
+      <div style="width: 75% ;margin-left: 12%;">
+      <h2 class="mt-4 ms-4">Search Product</h2>
+      <form action="/admin/productdetails" method="post" class=" mt-4 ms-4" style="width: 100%;">  
+        <input  type="text" name="id" placeholder="Enter product Id" style="width: 75%;height: 35px;">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+  </div>
+    </div>
+    
+      <% if(detail) { %>
+        <div class="album py-5">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-3">
+              <div class="col">
+                <div class="card shadow-lg" style="width: 75%; margin-left: 12%;">
+                  <a href="#" class="shadow-sm mt-4 ms-4 me-4 d-flex justify-content-center"><img src="/<%=detail[0].productimage%>" width="70%" height="450" style="border-radius: 5px;"></a>
+                  <div class="card-body">
+                    <span class="d-flex justify-content-between">
+                      <h4 class="card-text"><%= detail[0].name %></h4>
+                      <h4 class="card-text me-4">Rs.<%= detail[0].price %></h4>
+                    </span>
+                    <p class="card-text mt-2">
+                      <%= detail[0].details %> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate officia itaque porro! Repellendus blanditiis rerum perferendis quis itaque similique earum, molestias placeat quam, animi ratione dolor nesciunt! Tempora, repellendus ex.
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, accusantium aliquam corporis maiores obcaecati explicabo odio numquam atque beatae deserunt excepturi praesentium reiciendis. Aperiam pariatur vero earum a maxime officia.
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class=" mt-4">
+                       <pre><h5>Total Sales : <span>5600</span>  Ratings : <span> 65,321 😊</span></h5></pre>
+    
+                      </div>
+                      <small class="text-body-secondary"></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    
+    
+
+</body>
+</html>
