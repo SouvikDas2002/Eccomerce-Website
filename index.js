@@ -35,8 +35,8 @@ app.use(express.static(path.join(__dirname,"/productImage")));
 const userRoute = require("./router/userRoutes");
 const adminRoute = require("./router/adminRoutes");
 
-app.use("/users", userRoute);  //user route
-app.use("/admin", adminRoute); //admin route
+app.use("/users",auth, userRoute);  //user route
+app.use("/admin",auth, adminRoute); //admin route
 
 //session-authentication
 function auth(req, res, next) {

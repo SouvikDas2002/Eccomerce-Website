@@ -12,14 +12,6 @@ else if (req.session.email && req.session.role == "admin")
 res.redirect(`/admin/dashboard`);
 else res.render("login", { message: "" });
 });
-
-// login.get("/login", (req, res) => {
-  //   if (req.session.email && req.session.role == "user")
-  //   res.redirect(`/users/dashboard/:${req.session.email}`);
-  // else if (req.session.email && req.session.role == "admin")
-  // res.redirect(`/admin/dashboard/:${req.session.email}`);
-  // else res.render("login", { message: "" });
-  // });
   
   login.post("/login", async(req, res) => {
     // let checkPass=await bcrypt.hash(req.body.password,10);
