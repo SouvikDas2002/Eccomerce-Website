@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%- include('./partials/header') %>
+<%- include('.././partials/header') %>
 
 <head>
     <meta charset="UTF-8">
@@ -22,16 +22,10 @@
             </ul>
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/dashboard">Home<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/admin/productdetails">Go to Product Modify<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/dashboard">My orders<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="/users/dashboard">Cart<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="/users/orders/wishlist">Wishlist<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/admin/dashboard">Dashboard<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
@@ -53,26 +47,34 @@
         </nav>
         </header>
     <div class="pt-4">
-    <h2 class="pt-5 ps-2">My Cart Products</h2>
+    <h2 class="ms-3 pt-5 ps-2" style="font-family:Lora,sans-serif;">History</h2>
     </div>
     <table border="1" width="100%" class="table mt-4">
         <tr>
-            <th>Select</th>
+            <th>Id</th>
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
-            <th>order / Remove</th>
+            <th>Details</th>
+            <th>Operation</th>
         </tr>
-        <%  products.forEach(item=>{ %>
+        <%  productdetails.forEach(item=>{ %>
 
             <tr>
-                <td><input type="checkbox"></td>
-                <td><a href="#"><img src="/<%=item.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></a></td>
+                <td><%=item._id%></td>
+                <td><img src="/<%=item.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></td>
                 <td><%=item.name%></td>
                 <td><%=item.price%></td>
-                <td>
-                    <a href="/users/orders/wishlist/<%= item.name %>"><button  style="border-radius: 5px;background-color: aquamarine;">Buy</button></a>
-                    <a href="/users/orders/removecart/<%= item._id %>"><button class="ms-2" style="border-radius: 5px;background-color: rgb(200, 81, 81);color: antiquewhite;">Remove</button></td></a>
+                <td><%=item.details%></td>
+                <td><span style="text-transform: uppercase;font-weight: 500;">
+                    <% if(item.opr=="Deleted") {%>
+                        <span style="color: crimson;"><%= item.opr %></span>
+                        <%}else if(item.opr=="Added"){%>
+                            <span style="color: green;"><%= item.opr %></span>
+                            <%}else{%>
+                                <span style="color: blue;"><%= item.opr %></span>
+                    <%}%>
+                </span></td>
             </tr>
         <% }) %>
     </table>

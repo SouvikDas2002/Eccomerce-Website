@@ -25,21 +25,21 @@ const storage=multer.diskStorage({
 // admin dashboard
 route.get("/dashboard",async (req,res)=>{
     let alldata=await data.collection("products").find({}).toArray();
-    res.render("admindash",{productdetails:alldata,admin:req.session.email});
+    res.render("./admin/admindash",{productdetails:alldata,admin:req.session.email});
 
 })
 //product details
 route.get("/productdetails",async(req,res)=>{  
-    res.render('adminproductdetail',{detail:""});
+    res.render('./admin/adminproductdetail',{detail:""});
 })
 route.post("/productdetails",async(req,res)=>{
     let product=await data.collection("products").find({_id:new ObjectId(req.body.id)}).toArray();
-    res.render('adminproductdetail',{detail:product});
+    res.render('./admin/adminproductdetail',{detail:product});
 })
 
 //add product
 route.get("/productadd",async(req,res)=>{
-    res.render("productadd");
+    res.render("./admin/productadd");
 })
 
 route.post("/productadd",upload.single("productimage"), async (req,res)=>{
@@ -71,7 +71,7 @@ route.post("/productadd",upload.single("productimage"), async (req,res)=>{
 
 route.get("/productupdate/:id", async(req,res)=>{
     let details=await data.collection("products").find({_id:new ObjectId(req.params.id)}).toArray();
-    res.render("productupdate",{product:details});
+    res.render("./admin/productupdate",{product:details});
 })
 
 route.post("/productupdate/:id",async(req,res)=>{
@@ -113,7 +113,7 @@ route.get("/productdelete/:id",async(req,res)=>{
 route.get('/search',async(req,res)=>{
     console.log(req.query.id);
     let searchData = await data.collection('products').find({_id:new ObjectId( req.query.id) }).toArray();
-    res.render('admindash',{productdetails:searchData,admin:req.session.email})
+    res.render('./admin/admindash',{productdetails:searchData,admin:req.session.email})
     console.log(searchData);
 })
 
@@ -122,7 +122,7 @@ route.get("/profile",(req,res)=>{
 })
 route.get("/history",async(req,res)=>{
     let products=await data.collection("history").find({}).toArray();
-    res.render("history",{productdetails:products});
+    res.render("./admin/history",{productdetails:products});
 })
 
 data(function(res){

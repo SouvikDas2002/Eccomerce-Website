@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <%- include('./partials/header') %>
+    <%- include('.././partials/header') %>
     <style>
     
 
@@ -57,7 +57,7 @@
                   <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/users/profile">Services<span class="sr-only"></span></a>
                 </li>
             
         
@@ -75,20 +75,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <form action="/admin/productupdate/<%= product[0]._id %>" method="post">
-                        <h2 class="mb-3">Update Product Details</h2>
+                    <form action="/admin/productadd" method="post" enctype="multipart/form-data">
+                        <h2 class="mb-3">Add New Product</h2>
                         <div class="form-group">
-                            <input type="text" name="name" value="<%= product[0].name %>" class="form-control" placeholder="Enter product Name">
+                            <input type="text" name="name" class="form-control" placeholder="Enter product Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" name="price" value="<%= product[0].price %>" class="form-control" placeholder="Product price">
+                            <input type="number" name="price" class="form-control" placeholder="Product price" required>
+                        </div>
+                        <div class="form-group mb-3">
+                          <select  name="category" class="form-control" required>
+                            <option class="text-muted">Select category</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="electronics">Electronincs</option>
+                            <option value="medicine">Medicine</option>
+                            <option value="furniture">Furniture</option>
+                            <option value="sports">Sports</option>
+                          </select>
                         </div>
                         <div class="form-group">
-                            <textarea name="details" class="form-control" placeholder="Product Details" rows="3"><%= product[0].details %></textarea>
+                            <input type="number" name="stock" class="form-control" placeholder="Stock of the product" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="details" class="form-control" placeholder="Product Details" rows="3"></textarea>
                         </div>
                         <div class="form-group d-flex justify-content-between" >
-                            <input type="file" class="form-control-file">
-                            <button type="submit" class="btn btn-primary mt-4 right-0">Update</button>
+                            <input type="file" name="productimage" class="form-control-file" required>
+                            <button type="submit" class="btn btn-primary mt-4 right-0">Submit</button>
                         </div>
                     </form>
                 </div>

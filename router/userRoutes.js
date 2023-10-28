@@ -13,16 +13,16 @@ route.use("/orders",orders);
 route.get("/dashboard",async(req,res)=>{
 
     let products=await data.collection("products").find({}).toArray();
-    res.render("dashboard",{uname:req.session.email,products:products});
+    res.render("./user/dashboard",{uname:req.session.email,products:products});
 })
 route.get('/productdetails/:id',async(req,res)=>{
     let single=await data.collection("products").find({_id:new ObjectId(req.params.id)}).toArray();
-      res.render('productdetails',{detail:single});
+      res.render('./user/productdetails',{detail:single});
   })
 
 route.get("/category/:cat",async(req,res)=>{
     let category=await data.collection("products").find({"category":req.params.cat}).sort({name:-1}).toArray()
-    res.render("dashboard",{uname:req.session.email,products:category});
+    res.render("./user/dashboard",{uname:req.session.email,products:category});
 
 })  
 

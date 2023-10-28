@@ -3,12 +3,9 @@ const { ObjectId } = require("mongodb");
 let data = require("../mongodb/connection.js");
 
 order.get("/wishlist", async (req, res) => {
-  let items = await data
-    .collection("wishlist")
-    .find({ user: req.session.email })
-    .toArray();
+  let items = await data.collection("wishlist").find({ user: req.session.email }).toArray();
 
-  res.render("wishlist", { productdetails: items });
+  res.render("./user/wishlist", { productdetails: items });
 });
 order.get("/wishlist/:productname", async (req, res) => {
   const productname = req.params.productname;
@@ -31,7 +28,7 @@ order.get("/wishlist/:productname", async (req, res) => {
 
 order.get("/cart/:productname",async(req,res)=>{
     const productname=req.params.productname;
-    console.log(productname);
+    // console.log(productname);
 
     let productSelect=await data.collection("products").find({name:productname}).toArray();
     console.log(productSelect);
@@ -54,7 +51,7 @@ order.get("/cart/:productname",async(req,res)=>{
 order.get("/cart",async(req,res)=>{
     let cartProducts=await data.collection("cart").find({user:req.session.email}).toArray();
     // console.log(cartProducts);
-    res.render("cart",{products:cartProducts});
+    res.render("./user/cart",{products:cartProducts});
 })
 order.get("/removecart/:id",async(req,res)=>{
     await data.collection("cart").findOneAndDelete({_id:new ObjectId(req.params.id)});
@@ -66,7 +63,7 @@ order.get("/:id", async (req, res) => {
   let product = await data
     .collection("products")
     .findOne({ _id: new ObjectId(req.params.id) });
-  res.render("orderDetails", { product: product });
+  res.render("./user/orderDetails", { product: product });
 });
 order.post("/:id", async (req, res) => {
   let details = {

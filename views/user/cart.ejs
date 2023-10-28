@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%- include('./partials/header') %>
+<%- include('.././partials/header') %>
 
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,10 @@
                   <a class="nav-link" href="/users/dashboard">My orders<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/orders/cart">Cart<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/users/dashboard">Cart<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/orders/wishlist">Wishlist<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
@@ -50,24 +53,26 @@
         </nav>
         </header>
     <div class="pt-4">
-    <h2 class="pt-5 ps-2">Your Wishlist </h2>
+    <h2 class="pt-5 ps-2">My Cart Products</h2>
     </div>
     <table border="1" width="100%" class="table mt-4">
         <tr>
+            <th>Select</th>
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
-            <th>View/Add to Cart</th>
+            <th>order / Remove</th>
         </tr>
-        <%  productdetails.forEach(item=>{ %>
+        <%  products.forEach(item=>{ %>
 
             <tr>
-                <td><img src="/<%=item.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></td>
+                <td><input type="checkbox"></td>
+                <td><a href="#"><img src="/<%=item.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></a></td>
                 <td><%=item.name%></td>
                 <td><%=item.price%></td>
                 <td>
-                    <a href="/users/orders/wishlist/<%= item.name %>"><button  style="border-radius: 5px;background-color: aquamarine;">View</button></a>
-                    <a href="/users/orders/cart/<%= item.name %>"><button class="ms-2" style="border-radius: 5px;background-color: rgb(102, 102, 197);color: antiquewhite;">Add to Cart</button></td></a>
+                    <a href="/users/orders/wishlist/<%= item.name %>"><button  style="border-radius: 5px;background-color: aquamarine;">Buy</button></a>
+                    <a href="/users/orders/removecart/<%= item._id %>"><button class="ms-2" style="border-radius: 5px;background-color: rgb(200, 81, 81);color: antiquewhite;">Remove</button></td></a>
             </tr>
         <% }) %>
     </table>

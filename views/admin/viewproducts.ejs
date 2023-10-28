@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%- include('./partials/header') %>
+<%- include('.././partials/header') %>
 
 <head>
     <meta charset="UTF-8">
@@ -22,9 +22,6 @@
             </ul>
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/admin/productdetails">Go to Product Modify<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
                   <a class="nav-link" href="/admin/dashboard">Dashboard<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
@@ -34,7 +31,7 @@
                   <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/users/profile">Services<span class="sr-only"></span></a>
                 </li>
               <li class="nav-item active">
                 <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
@@ -47,7 +44,7 @@
         </nav>
         </header>
     <div class="pt-4">
-    <h2 class="ms-3 pt-5 ps-2" style="font-family:Lora,sans-serif;">History</h2>
+    <h2 class="pt-5 ps-2">All Products</h2>
     </div>
     <table border="1" width="100%" class="table mt-4">
         <tr>
@@ -56,25 +53,15 @@
             <th>Name</th>
             <th>Price</th>
             <th>Details</th>
-            <th>Operation</th>
         </tr>
         <%  productdetails.forEach(item=>{ %>
 
             <tr>
-                <td><%=item._id%></td>
-                <td><img src="/<%=item.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></td>
+                <td><%=item.id%></td>
+                <td><img src="<%= item.productimage %>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></td>
                 <td><%=item.name%></td>
                 <td><%=item.price%></td>
                 <td><%=item.details%></td>
-                <td><span style="text-transform: uppercase;font-weight: 500;">
-                    <% if(item.opr=="Deleted") {%>
-                        <span style="color: crimson;"><%= item.opr %></span>
-                        <%}else if(item.opr=="Added"){%>
-                            <span style="color: green;"><%= item.opr %></span>
-                            <%}else{%>
-                                <span style="color: blue;"><%= item.opr %></span>
-                    <%}%>
-                </span></td>
             </tr>
         <% }) %>
     </table>
