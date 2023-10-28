@@ -10,14 +10,20 @@
     <a class="navbar-brand ms-4 fw-bold" href="#"><span style="font-family: lora,serif;">Shop Site</span></a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+        <a class="nav-link" href="#"><i class="fa-brands fa-instagram"></i></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><i class="fa-brands fa-facebook-f"></i></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><i class="fa-brands fa-twitter"></i></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><i class="fa-brands fa-snapchat"></i></span></a>
       </li>
       
     </ul>
     <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
-        </li> -->
         <li class="nav-item active">
           <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
         </li>
@@ -30,9 +36,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="/signup"><span class="">Register</span></a>
         </li>
-    </ul>
-   
- 
+      </ul>
   </div>
 </nav>
 </header>
@@ -81,16 +85,14 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group mb-4 ms-3 mt-2">
                               <a href="/productdetails/<%= item.id %>"> <button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                                
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>   
                             </div>
                             <small class="text-body-secondary"></small>
                         </div>
                     </div>
                 </div>
             </div>
-            <% }) %>
-    
+            <% }) %>    
       </div>
     <!-- </div> -->
   </div>

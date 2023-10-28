@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<%- include('./partials/header') %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed overflow-hidden" style="width: 100%">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand ms-4 fw-bold" href="#">Shop Site</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+              </li>
+              
+            </ul>
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/dashboard">Home<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/dashboard">My orders<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/dashboard">Cart<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/orders/wishlist">Wishlist<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+                </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
+              </li>
+              
+            </ul>
+           
+         
+          </div>
+        </nav>
+        </header>
+    <div class="pt-4">
+    <h2 class="pt-5 ps-2">My Cart Products</h2>
+    </div>
+    <table border="1" width="100%" class="table mt-4">
+        <tr>
+            <th>Select</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>order / Remove</th>
+        </tr>
+        <%  products.forEach(item=>{ %>
+
+            <tr>
+                <td><input type="checkbox"></td>
+                <td><a href="#"><img src="/<%=item.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;"></a></td>
+                <td><%=item.name%></td>
+                <td><%=item.price%></td>
+                <td>
+                    <a href="/users/orders/wishlist/<%= item.name %>"><button  style="border-radius: 5px;background-color: aquamarine;">Buy</button></a>
+                    <a href="/users/orders/removecart/<%= item._id %>"><button class="ms-2" style="border-radius: 5px;background-color: rgb(200, 81, 81);color: antiquewhite;">Remove</button></td></a>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

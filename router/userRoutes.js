@@ -5,6 +5,9 @@ const fs=require('fs');
 const Objid=require('mongodb').ObjectId;
 let data=require('../mongodb/connection.js');
 const { ObjectId } = require('mongodb');
+const orders=require("./orderRoute.js");
+
+route.use("/orders",orders);
 
 // user dashboard
 route.get("/dashboard",async(req,res)=>{
@@ -30,6 +33,7 @@ route.get("/profile",(req,res)=>{
 route.get("/history",(req,res)=>{
     res.send("user history page");
 })
+
 
 
 

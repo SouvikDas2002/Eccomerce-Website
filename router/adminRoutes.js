@@ -48,6 +48,7 @@ route.post("/productadd",upload.single("productimage"), async (req,res)=>{
         name:req.body.name,
         price:req.body.price,
         details:req.body.details,
+        stock:req.body.stock,
         productimage:req.file.filename,
         category:req.body.category,
     }
