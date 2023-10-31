@@ -7,7 +7,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand ms-4 fw-bold" href="#">Shop Site</a>
+            <a class="navbar-brand ms-4 fw-bold" href="#"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop Site</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> 
             </ul>
             
@@ -16,13 +16,13 @@
                     <a class="nav-link" href="/users/dashboard">Home <span class="sr-only"></span></a>
                   </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/users/dashboard">Cart <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/users/orders/cart">Cart<sup style="color: red;"><b><%= cartNumber %></b></sup><span class="sr-only"></span></a>
                   </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/users/dashboard">My Orders <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/users/orders/myOrders">My Orders <sup style="color: red;"><b><%= ordersNumber %></b></sup><span class="sr-only"></span></a>
                   </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/users/orders/wishlist">Wishlist<span class="sr-only"></span></a>
+                    <a class="nav-link" href="/users/orders/wishlist">Wishlist <sup style="color: red;"><b><%= wishNumber %></b></sup><span class="sr-only"></span></a>
                   </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
@@ -62,14 +62,22 @@
                 </span>
                 <p class="card-text"><%= detail[0].details %> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate officia itaque porro! Repellendus blanditiis rerum perferendis quis itaque similique earum, molestias placeat quam, animi ratione dolor nesciunt! Tempora, repellendus ex.</p>
                 <div class="d-flex">
+                  <% if(detail[0].stock>0) {%>
                 <p class="text-muted me-2">Stock : <%= detail[0].stock %> </p>
+                <% }else{ %>
+                  <p class="me-2" style="color: crimson;">Stock : Out of Stock </p>
+                  <% } %>
                 <p class="text-muted">Recently purchased : <%= detail[0].stock %></p>
                   </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
+                      <% if(detail[0].stock>0) {%>
                          <a href="/users/orders/<%= detail[0]._id %>"><button type="button" class="btn btn-sm btn-outline-secondary">Order Now</button></a> 
+                      <% }else{ %>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Notify Me</button></a> 
+
+                        <% } %>
                         <a href="/users/orders/addWishList/<%= detail[0]._id %>"><button  id="Wishlist" type="button" class="btn btn-sm btn-outline-secondary">Whislist</button></a>
-                         
                     </div>
                     <small class="text-body-secondary"></small>
                 </div>

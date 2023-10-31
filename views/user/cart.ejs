@@ -13,10 +13,10 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand ms-4 fw-bold" href="#">Shop Site</a>
+            <a class="navbar-brand ms-4 fw-bold" href="#"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop Site</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+                <!-- <a class="nav-link" href="#">Home <span class="sr-only"></span></a> -->
               </li>
               
             </ul>
@@ -25,13 +25,10 @@
                   <a class="nav-link" href="/users/dashboard">Home<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/dashboard">My orders<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/users/orders/myOrders">My orders <sup style="color: red;"><b><%= ordersNumber %></b></sup><span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="/users/dashboard">Cart<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="/users/orders/wishlist">Wishlist<span class="sr-only"></span></a>
+                  <a class="nav-link" href="/users/orders/wishlist">Wishlist <sup style="color: red;"><b><%= wishNumber %></b></sup><span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
                   <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
@@ -71,7 +68,7 @@
                 <td><%=item.name%></td>
                 <td><%=item.price%></td>
                 <td>
-                    <a href="/users/orders/wishlist/<%= item.name %>"><button  style="border-radius: 5px;background-color: aquamarine;">Buy</button></a>
+                    <a href="/users/orders/ordercart/<%=item.name%>"><button  style="border-radius: 5px;background-color: aquamarine;">Buy</button></a>
                     <a href="/users/orders/removecart/<%= item._id %>"><button class="ms-2" style="border-radius: 5px;background-color: rgb(200, 81, 81);color: antiquewhite;">Remove</button></td></a>
             </tr>
         <% }) %>

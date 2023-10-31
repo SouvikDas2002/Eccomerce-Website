@@ -3,9 +3,13 @@ const { ObjectId } = require("mongodb");
 let data = require("../mongodb/connection.js");
 
 order.get("/wishlist", async (req, res) => {
+    let cartNumber=await data.collection("cart").find({user:req.session.email}).count();
+    let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
+
+
   let items = await data.collection("wishlist").find({ user: req.session.email }).toArray();
 
-  res.render("./user/wishlist", { productdetails: items });
+  res.render("./user/wishlist", { productdetails: items,cartNumber,ordersNumber });
 });
 order.get("/wishlist/:productname", async (req, res) => {
   const productname = req.params.productname;
@@ -25,6 +29,11 @@ order.get("/wishlist/:productname", async (req, res) => {
     .toArray();
   res.redirect(`/users/productdetails/${item[0].info[0]._id}`);
 });
+order.get("/wishlist/remove/:id",async(req,res)=>{
+    console.log(req.params.id);
+    await data.collection("wishlist").findOneAndDelete({_id:new ObjectId(req.params.id)});
+    res.redirect('/users/orders/wishlist');
+})
 
 order.get("/cart/:productname",async(req,res)=>{
     const productname=req.params.productname;
@@ -49,37 +58,67 @@ order.get("/cart/:productname",async(req,res)=>{
 })
 
 order.get("/cart",async(req,res)=>{
+    let wishNumber=await data.collection("wishlist").find({user:req.session.email}).count();
+    let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
+
     let cartProducts=await data.collection("cart").find({user:req.session.email}).toArray();
     // console.log(cartProducts);
-    res.render("./user/cart",{products:cartProducts});
+    res.render("./user/cart",{products:cartProducts,wishNumber,ordersNumber});
 })
 order.get("/removecart/:id",async(req,res)=>{
     await data.collection("cart").findOneAndDelete({_id:new ObjectId(req.params.id)});
     res.redirect("/users/orders/cart");
 })
 
+order.get("/ordercart/:name",async(req,res)=>{
+    let item=await data.collection("cart").aggregate([
+        {$match: { name : req.params.name}},
+        {
+            $lookup:{
+                from: "products",
+                localField: "name",
+                foreignField: "name",
+                as: "info",
+            }
+        }
+    ]).toArray();
+    // console.log(item);
+    res.redirect(`/users/orders/${item[0].info[0]._id}`);
+})
+
+order.get("/myOrders",async(req,res)=>{
+    const orders=await data.collection("orders").find({"primaryEmail":req.session.email}).sort({_id:-1}).toArray()
+    res.render("./user/myOrders",{products:orders})
+})
+
 
 order.get("/:id", async (req, res) => {
-  let product = await data
-    .collection("products")
-    .findOne({ _id: new ObjectId(req.params.id) });
-  res.render("./user/orderDetails", { product: product });
+    let cartNumber=await data.collection("cart").find({user:req.session.email}).count();
+    let wishNumber=await data.collection("wishlist").find({user:req.session.email}).count();
+    let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
+
+  let product = await data.collection("products").findOne({ _id: new ObjectId(req.params.id) });
+  res.render("./user/orderDetails", { product: product,cartNumber,wishNumber,ordersNumber });
 });
 order.post("/:id", async (req, res) => {
-  let details = {
+    const orderData =await data.collection("products").findOne({_id:new ObjectId(req.params.id)});
+    console.log(orderData);
+    let details = {
+    productimage:orderData.productimage,
     name: req.body.name,
+    primaryEmail: req.session.email,
     email: req.body.email,
     phoneNumber: req.body.phoneNumber,
     address: req.body.address,
     city: req.body.city,
     state: req.body.state,
     zipCode: req.body.zipCode,
-    totalAmount: req.body.totalAmount,
+    totalAmount: orderData.price,
     quantity: req.body.quantity,
     dateTime: new Date().toDateString(),
   };
   let neworder = await data.collection("orders").insertOne(details);
-  console.log(neworder);
+//   console.log(neworder);
 
   // update stock of a product
   if (neworder) {
@@ -89,6 +128,7 @@ order.post("/:id", async (req, res) => {
         { returnOriginal: false }
       );
   }
+  res.render('./user/confirmOrder');
 });
 
 order.get("/addWishList/:id", async (req, res) => {
@@ -110,6 +150,8 @@ order.get("/addWishList/:id", async (req, res) => {
 
   res.redirect("/users/productdetails/" + d._id);
 });
+
+
 
 data(function (res) {
   if (data) data = res;

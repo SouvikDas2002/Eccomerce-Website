@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<%- include('.././partials/header') %>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  h1 {
+    color: #4CAF50;
+  }
+  p {
+    color: #333;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed  overflow-hidden mb-4" style="width: 100%">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand ms-4 fw-bold" href="#"><span style="font-family: lora,serif;"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop Site</span></a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#"><i class="fa-brands fa-instagram"></i></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#"><i class="fa-brands fa-facebook-f"></i></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#"><i class="fa-brands fa-twitter"></i></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#"><i class="fa-brands fa-snapchat"></i></span></a>
+              </li>
+              
+            </ul>
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
+              <li class="nav-item active">
+                <a class="nav-link" href="/users/orders/cart">Cart <span class="sr-only"></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/users/orders/myOrders">My Orders<span class="sr-only"></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/users/orders/wishlist">Wishlist<span></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
+              </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+                </li>
+        
+              <li class="nav-item active">
+                <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        </header>
+   
+  <div class="container py-5">
+    <h1>Thank You for Your Order!</h1>
+    <p>Your order will be processed shortly and you will receive a confirmation email with the details.</p>
+    <p>If you have any questions or concerns, please don't hesitate to contact us.</p>
+    <p>Thank you again!</p>
+  </div>
+</body>
+</html>
