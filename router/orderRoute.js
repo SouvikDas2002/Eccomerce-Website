@@ -27,10 +27,30 @@ order.get("/wishlist/:productname", async (req, res) => {
       },
     ])
     .toArray();
+    // console.log(item)
+  res.redirect(`/users/productdetails/${item[0].info[0]._id}`);
+});
+order.get("/myorders/:productname", async (req, res) => {
+  const productname = req.params.productname;
+  // console.log(productname);
+
+  const item = await data.collection("products").aggregate([
+      { $match: { name: productname } },
+      {
+        $lookup: {
+          from: "products",
+          localField: "name",
+          foreignField: "name",
+          as: "info",
+        },
+      },
+    ])
+    .toArray();
+    // console.log(item)
   res.redirect(`/users/productdetails/${item[0].info[0]._id}`);
 });
 order.get("/wishlist/remove/:id",async(req,res)=>{
-    console.log(req.params.id);
+    // console.log(req.params.id);
     await data.collection("wishlist").findOneAndDelete({_id:new ObjectId(req.params.id)});
     res.redirect('/users/orders/wishlist');
 })
@@ -40,7 +60,7 @@ order.get("/cart/:productname",async(req,res)=>{
     // console.log(productname);
 
     let productSelect=await data.collection("products").find({name:productname}).toArray();
-    console.log(productSelect);
+    // console.log(productSelect);
 
     let cartProduct={
         name:productSelect[0].name,
@@ -54,7 +74,7 @@ order.get("/cart/:productname",async(req,res)=>{
     console.log("already add in cart");
   } else await data.collection("cart").insertOne(cartProduct);
 
-    res.redirect("/users/orders/wishlist")
+    res.redirect("/users/orders/cart")
 })
 
 order.get("/cart",async(req,res)=>{
@@ -90,6 +110,10 @@ order.get("/myOrders",async(req,res)=>{
     const orders=await data.collection("orders").find({"primaryEmail":req.session.email}).sort({_id:-1}).toArray()
     res.render("./user/myOrders",{products:orders})
 })
+order.get("/cancelorder/:x",async(req,res)=>{
+  await data.collection("orders").findOneAndDelete({_id: new ObjectId(req.params.x)});
+  res.redirect("/users/orders/myOrders")
+})
 
 
 order.get("/:id", async (req, res) => {
@@ -105,6 +129,7 @@ order.post("/:id", async (req, res) => {
     console.log(orderData);
     let details = {
     productimage:orderData.productimage,
+    productname:orderData.name,
     name: req.body.name,
     primaryEmail: req.session.email,
     email: req.body.email,

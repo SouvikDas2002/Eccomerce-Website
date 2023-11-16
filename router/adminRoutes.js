@@ -15,7 +15,7 @@ const storage=multer.diskStorage({
       return cb(null,"./productImage")
     },
     filename: function (req, file, cb) {
-      console.log(file);
+    //   console.log(file);
       return cb(null,file.originalname);
     }
   })
@@ -53,7 +53,7 @@ route.post("/productadd",upload.single("productimage"), async (req,res)=>{
         category:req.body.category,
     }
         let newProduct=await data.collection("products").insertOne(newP);
-        console.log(newProduct);
+        // console.log(newProduct);
         if(newProduct){
             let x=newP;
             x.opr="Added";
@@ -114,7 +114,7 @@ route.get('/search',async(req,res)=>{
     console.log(req.query.id);
     let searchData = await data.collection('products').find({_id:new ObjectId( req.query.id) }).toArray();
     res.render('./admin/admindash',{productdetails:searchData,admin:req.session.email})
-    console.log(searchData);
+    // console.log(searchData);
 })
 
 route.get("/profile",(req,res)=>{

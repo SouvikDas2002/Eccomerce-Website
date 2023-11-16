@@ -31,6 +31,7 @@ app.use(
 // route and authentication middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,"/productImage")));
+app.use(express.static(path.join(__dirname,"/comment")));
 
 const userRoute = require("./router/userRoutes");
 const adminRoute = require("./router/adminRoutes");

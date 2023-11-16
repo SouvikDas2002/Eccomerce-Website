@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <%- include('.././partials/header') %>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <header >
+        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed z-3 shadow-sm" style="width: 100%;">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          
+          
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <a class="navbar-brand ms-4 fw-bold" href="#"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop Site</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> 
             </ul>
@@ -41,15 +43,16 @@
         </nav>
         </header>
 
-    <div class="album py-5 bg-body-tertiary">
-    <div class="container">
+    <div class="album py-5 bg-body-tertiary ">
+    <div class="container mt-5">
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
     <div class="col">
         <div class="card shadow-sm">
           <div class="d-flex justify-content-between">
-            <a href="#"><img class="ms-3 mt-3" src="/<%=detail[0].productimage%>" width="100%" height="450" style="border-radius: 5px;"></a>
-            <div class="me-3 mt-3 ms-4" style="width: 60%;border: 1px solid black;">
-            <center><h4>Product Details:</h4></center>
+            <a href="#"><img class="ms-3 shadow-sm mt-3" src="/<%=detail[0].productimage%>" width="100%" height="450" style="border-radius: 5px;"></a>
+            <div class="me-3 shadow-sm mt-3 ms-4" style="width: 60%;">
+            <center><h4>Product Different Variation:</h4></center>
+            
             </div>
             </div>
             <div class="card-body">
@@ -60,26 +63,55 @@
                 <h4 class="ms-5 me-5card-text">Rs.<%= detail[0].price %></h4>
                 </div>
                 </span>
-                <p class="card-text"><%= detail[0].details %> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate officia itaque porro! Repellendus blanditiis rerum perferendis quis itaque similique earum, molestias placeat quam, animi ratione dolor nesciunt! Tempora, repellendus ex.</p>
+                <span><i class="fa-solid fa-bolt"></i> Quick delivery available on this product</span>
                 <div class="d-flex">
                   <% if(detail[0].stock>0) {%>
-                <p class="text-muted me-2">Stock : <%= detail[0].stock %> </p>
+                <p class="text-muted me-2"><i class="fa-solid fa-angles-right"></i> Available : <%= detail[0].stock %> </p>
                 <% }else{ %>
                   <p class="me-2" style="color: crimson;">Stock : Out of Stock </p>
                   <% } %>
                 <p class="text-muted">Recently purchased : <%= detail[0].stock %></p>
                   </div>
+                <p class="card-text"><%= detail[0].details %> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate officia itaque porro! Repellendus blanditiis rerum perferendis quis itaque similique earum, molestias placeat quam, animi ratione dolor nesciunt! Tempora, repellendus ex.</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                       <% if(detail[0].stock>0) {%>
-                         <a href="/users/orders/<%= detail[0]._id %>"><button type="button" class="btn btn-sm btn-outline-secondary">Order Now</button></a> 
+                         <a href="/users/orders/<%= detail[0]._id %>"><button type="button" class="btn btn-sm btn-outline-secondary shadow-sm p-2"><i class="fa-solid fa-bag-shopping "></i> Order Now</button></a> 
                       <% }else{ %>
                         <button type="button" class="btn btn-sm btn-outline-secondary">Notify Me</button></a> 
 
                         <% } %>
-                        <a href="/users/orders/addWishList/<%= detail[0]._id %>"><button  id="Wishlist" type="button" class="btn btn-sm btn-outline-secondary">Whislist</button></a>
+                        <a href="/users/orders/addWishList/<%= detail[0]._id %>"><button  id="Wishlist" type="button" class="btn shadow-sm btn-sm p-2 btn-outline-secondary"><i class="fa-regular fa-heart"></i> Whislist</button></a>
                     </div>
                     <small class="text-body-secondary"></small>
+                </div>
+                <div class="mt-3">
+                  <h4>Users Reviews on this product</h4>
+                  <div class="py-5  container bg-body-tertiary shadow-sm p-3 mb-3 bg-body rounded" >
+                    <div class="row row-cols-1 row-cols-sm-4 row-cols-md-5 g-3 container ms-5" >
+                      
+                      <% comm.forEach(mess => {%>
+                        
+                        <div class="col shadow-sm me-4">
+                          <img src="/<%= mess.image %>" alt="" width="100%" height="250" style="background-size: cover;border-radius: 5px;">
+                        <div class="card-body">
+  
+                          <div class="card-text"><%= mess.comment %></div>
+                        </div>
+                        </div>
+
+                      <%}); %>            
+                      
+                    </div>
+                  </div>
+                  <form action="/users/comment/review/<%=detail[0]._id%>" method="post" enctype="multipart/form-data">
+                    <label>leave comment : </label>
+                    <input type="text" name="comment" placeholder="write your feelings here"><br><br>
+                    <p>You can upload Your own style and share your fashion with others</p>
+                    <label for="image" style="font-size: 30px;"><i class="fa-solid fa-cloud-arrow-up"> </i> </label>
+                    <input type="file" name="pic" id="image" hidden>
+                    <input type="submit" value="Upload">
+                  </form>
                 </div>
             </div>
         </div>

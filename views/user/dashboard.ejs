@@ -2,8 +2,8 @@
 <%- include('.././partials/header') %>
   <body>
    <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed  overflow-hidden z-3" style="width: 100%">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed z-3" style="width: 100%">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -79,10 +79,15 @@
     </div>
     </div>
 
-  <div class=" py-5  container">
+    <div class="d-flex justify-content-around">
+      <aside class="bg-body-tertiary shadow p-3 mb-5 bg-body rounded" style="width: 170px;height: 50rem;">
+        <p class="mt-3" style="text-align: center;">BRANDS <br>YOU MAY LIKE</p><hr>
+      </aside>
+
+  <div class=" py-5  container bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
     <!-- <div class="container "> -->
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 container">
 
         <% products.forEach(item=>{ %>
 
@@ -97,9 +102,8 @@
                         
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group mb-4 ms-3 mt-2">
-                              <a href="/users/productdetails/<%=item._id %>"> <button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
-                                
+                              <a href="/users/productdetails/<%=item._id %>"> <button type="button" class="btn btn-sm btn-outline-secondary me-2">View</button></a>
+                                <a href="/users/orders/cart/<%= item.name %>"><button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button></a>                               
                             </div>
                             <small class="text-body-secondary"></small>
                         </div>
@@ -110,6 +114,7 @@
     
       </div>
     <!-- </div> -->
+  </div>
   </div>
 
 </main>

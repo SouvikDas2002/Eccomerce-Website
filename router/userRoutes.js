@@ -6,8 +6,10 @@ const Objid=require('mongodb').ObjectId;
 let data=require('../mongodb/connection.js');
 const { ObjectId } = require('mongodb');
 const orders=require("./orderRoute.js");
+const comment=require("./comment.js");
 
 route.use("/orders",orders);
+route.use("/comment",comment);
 
 // user dashboard
 route.get("/dashboard",async(req,res)=>{
@@ -25,7 +27,9 @@ route.get('/productdetails/:id',async(req,res)=>{
     let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
 
     let single=await data.collection("products").find({_id:new ObjectId(req.params.id)}).toArray();
-      res.render('./user/productdetails',{detail:single,cartNumber,wishNumber,ordersNumber});
+    let commentData=await data.collection("comment").find({productname:single[0].name}).toArray();
+    // console.log(commentData)
+      res.render('./user/productdetails',{detail:single,cartNumber,wishNumber,ordersNumber,comm:commentData});
   })
 
 route.get("/category/:cat",async(req,res)=>{
