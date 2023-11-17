@@ -116,7 +116,9 @@
                 <div class="order-form-container">
                     <h2>Please Confirm Your Order </h2>
                     <div class="d-flex mb-3">
-                        <img src="/<%=product.productimage%>" width="100" height="100" style="background-size: cover;border-radius: 5px;">
+                      <% product.productimage.forEach(image => { %>
+                        <img src="/<%= image %>" width="100" height="100" style="background-size: cover; border-radius: 5px; margin-right: 10px;">
+                    <% }); %>
                         <div class="d-flex flex-column ms-2">
                         <p>Product Name: <b><%= product.name %></b></p>
                         <p>Total Price: <b><%= product.price %>.00</b></p>

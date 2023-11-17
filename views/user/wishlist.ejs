@@ -68,7 +68,7 @@
                 <td><%=item.price%></td>
                 <td>
                     <a href="/users/orders/wishlist/<%= item.name %>"><button  style="border-radius: 5px;background-color: aquamarine;">View</button></a>
-                    <a href="/users/orders/cart/<%= item.name %>"><button class="ms-2" style="border-radius: 5px;background-color: rgb(102, 102, 197);color: antiquewhite;">Add to Cart</button></a></td>
+                    <a href="/users/orders/cart/<%= item.name %>"><button class="ms-2 bg-warning" style="border-radius: 5px;">Add to Cart</button></a></td>
                     <td><a href="/users/orders/wishlist/remove/<%= item._id %>"><button  style="border-radius: 5px;background-color: rgb(162, 63, 88);color: antiquewhite;">Remove</button></a></td>
             </tr>
         <% }) %>
