@@ -19,6 +19,7 @@ signUp.post("/", async(req, res) => {
           }else{
 
             let userCredentials={
+              username:"ABC",
             email:req.body.email,
             password:hashedPass,
             role:req.body.role
@@ -35,6 +36,7 @@ signUp.post("/", async(req, res) => {
           }else{
     let userCredentials=
           {
+            username:"ABC",
             email:req.body.email,
             password:hashedPass,
             role:req.body.role
