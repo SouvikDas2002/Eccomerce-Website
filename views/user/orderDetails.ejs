@@ -116,16 +116,20 @@
                 <div class="order-form-container">
                     <h2>Please Confirm Your Order </h2>
                     <div class="d-flex mb-3">
-                      <% product.productimage.forEach(image => { %>
+                      <% if(multiproduct) {%>
+                       <% multiproduct.productimage.forEach(image => { %> 
                         <img src="/<%= image %>" width="100" height="100" style="background-size: cover; border-radius: 5px; margin-right: 10px;">
-                    <% }); %>
+                        <% }); %>
+                        <% } else{ %>
+                          <img src="/<%= product.productimage %>" width="100" height="100" style="background-size: cover; border-radius: 5px; margin-right: 10px;">
+                        <% } %> 
                         <div class="d-flex flex-column ms-2">
-                        <p>Product Name: <b><%= product.name %></b></p>
-                        <p>Total Price: <b><%= product.price %>.00</b></p>
+                        <p>Product Name: <b><%= (multiproduct)? multiproduct.name:product.name %></b></p>
+                        <p>Total Price: <b><%= (multiproduct)? multiproduct.price:product.price %>.00</b></p>
                         </div>
                     </div>
                     <p>Please Fill the below form with correct details</p>
-                    <form action="/users/orders/<%= product._id %>" method="post">
+                    <form action="/users/orders/<%=(multiproduct)?"multiple":product._id%>" method="post">
                         <div class="form-group">
                             <label for="name">*Name</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>

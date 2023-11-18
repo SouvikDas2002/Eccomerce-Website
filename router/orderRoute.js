@@ -84,7 +84,7 @@ order.get("/myorders/:productname", async (req, res) => {
 
 order.get("/cart/:productname",async(req,res)=>{
     const productname=req.params.productname;
-    // console.log(productname);
+    
 
     let productSelect=await data.collection("products").find({name:productname}).toArray();
     // console.log(productSelect);
@@ -132,7 +132,6 @@ order.get("/cart",async(req,res)=>{
     let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
 
   let cartProducts=await data.collection("cart").find({user:req.session.email}).toArray();
-  console.log(cartProducts);
   let totalAmount = 0;
     cartProducts.forEach((product) => {
       totalAmount += parseInt(product.price);
@@ -147,8 +146,8 @@ order.get("/cart",async(req,res)=>{
     productimage:productImages,
     user:req.session.email
   }
-  console.log(details);
-  res.render("./user/orderdetails", { product: details,cartNumber,wishNumber,ordersNumber });
+  // console.log(details);
+  res.render("./user/orderdetails", { multiproduct: details,cartNumber,wishNumber,ordersNumber });
 })
 
 // * ORDER SINGLE PRODUCT ------
@@ -184,8 +183,36 @@ order.get("/:id", async (req, res) => {
     let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
 
   let product = await data.collection("products").findOne({ _id: new ObjectId(req.params.id) });
-  res.render("./user/orderDetails", { product: product,cartNumber,wishNumber,ordersNumber });
+  res.render("./user/orderDetails", { product: product,cartNumber,wishNumber,ordersNumber,multiproduct:null });
 });
+
+// * handle multiple orders
+order.post("/multiple", async(req,res)=>{
+  let cartProducts=await data.collection("cart").find({user:req.session.email}).toArray();
+  let productsName=cartProducts.map(product=> product.name);
+  let productsImage=cartProducts.map(product=> product.productimage);
+  let productsPrice=cartProducts.map(product=> product.price);
+  console.log(cartProducts);
+  // console.log(productsName);
+  let details = {
+    productimage:productsImage,
+    productname:productsName,
+    name: req.body.name,
+    primaryEmail: req.session.email,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zipCode: req.body.zipCode,
+    totalAmount: productsPrice,
+    quantity: req.body.quantity,
+    dateTime: new Date().toDateString(),
+  };
+  // console.log(details);
+  await data.collection("orders").insertOne(details);
+  res.render('./user/confirmOrder');
+})
 
 // * ORDER USER CREDENTIALS ----
 order.post("/:id", async (req, res) => {
