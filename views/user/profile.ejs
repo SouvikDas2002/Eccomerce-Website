@@ -31,8 +31,8 @@
       </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed z-3" style="width: 100%">
+    <header class="shadom-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed z-3 " style="width: 100%">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler02" aria-controls="navbarToggler02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -89,18 +89,31 @@
         
               <hr>
         
-              <h4>Personal Information</h4>
-              <p><strong>Address:</strong> 123 Main Street, Cityville</p>
-              <p><strong>Phone:</strong> (555) 123-4567</p>
+              <center><h4 style="font-family: Lora,sans-serif;">Personal Information</h4></center>
+              <p><strong>Address:</strong> 123 Main Street, Cityville <span id="addressedit" style="cursor: pointer;"><i class="fa-regular fa-pen-to-square"></i></span></p>
+              <form action="" method="post" style="display: none;" id="addressForm"><input class="text-center w-75 mb-2 me-2" type="text" name="address" placeholder="Your Address"><button class="btn bg-warning" style="font-size: 12px;">Update</button></form>
+              <p><strong>Phone:</strong> (555) 123-4567 <span id="numberedit" style="cursor: pointer;"><i class="fa-regular fa-pen-to-square"></i></span></p>
+              <form action="" method="post" style="display: none;" id="numberForm"><input class="text-center w-75 me-2" type="number" name="contact" placeholder="Your Contact"><button class="btn bg-warning" style="font-size: 12px ;">Update</button></form>
         
               <hr>
         
               <h4>Order History</h4>
-              <ul>
-                <li>Order #001 - $50.00</li>
-                <li>Order #002 - $30.00</li>
-                <!-- Add more order history items as needed -->
-              </ul>
+              <table class="table" width="100%" border="1">
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Order Date</th>
+                </tr>
+                <% orders.forEach(item => {%>
+                    <tr>
+                      <td><a href="/users/orders/myorders/<%= item.productname %>"><img src="/<%= item.productimage %>"width="100" height="100" style="background-size: cover;border-radius: 5px;"></a></td>
+                      <td><%= item.productname %></td>
+                      <td><%= item.totalAmount %></td>
+                      <td><%= item.dateTime %></td>
+                    </tr>
+                <%}); %>
+              </table>
         
               <hr>
         
@@ -131,6 +144,18 @@
             var edit=document.getElementById("edit");
             edit.onclick=()=>{
                 var newName=document.querySelector("form");
+                newName.style.display="block";
+                
+            }
+            var edit=document.getElementById("addressedit");
+            edit.onclick=()=>{
+                var newName=document.getElementById("addressForm");
+                newName.style.display="block";
+                
+            }
+            var edit=document.getElementById("numberedit");
+            edit.onclick=()=>{
+                var newName=document.getElementById("numberForm");
                 newName.style.display="block";
                 
             }

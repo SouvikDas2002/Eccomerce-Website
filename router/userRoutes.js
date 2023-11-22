@@ -32,7 +32,7 @@ route.get("/dashboard",async(req,res)=>{
     let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
     // console.log(wishNumber);
     let user=await data.collection("users").findOne({email:req.session.email});
-    console.log(user);
+    // console.log(user);
 
     let products=await data.collection("products").find({}).toArray();
     res.render("./user/dashboard",{uname:req.session.email,products:products,cartNumber,wishNumber,ordersNumber,user:user});
@@ -62,14 +62,16 @@ route.get("/profile",async(req,res)=>{
     let cartNumber=await data.collection("cart").find({user:req.session.email}).count();
     let wishNumber=await data.collection("wishlist").find({user:req.session.email}).count();
     let ordersNumber=await data.collection("orders").find({primaryEmail:req.session.email}).count();
-
+  
+    const ordersHistory=await data.collection("orders").find({"primaryEmail":req.session.email}).sort({_id:-1}).toArray()
+    // console.log(ordersHistory);
     let userProfile=await data.collection("users").findOne({email:req.session.email});
     // console.log(userProfile)
-    res.render("./user/profile",{userdetail:userProfile,cartNumber,wishNumber,ordersNumber});
+    res.render("./user/profile",{userdetail:userProfile,cartNumber,wishNumber,ordersNumber,orders:ordersHistory});
 })
 
 route.post("/updateProfile",upload.single("profilepic"),async(req,res)=>{
-    console.log(req.file.filename);
+    // console.log(req.file.filename);
     await data.collection("users").updateOne({email:req.session.email},{$set:{username:req.body.username,profilepic:req.file.filename}});
     res.redirect("/users/profile")
 })
