@@ -1,3 +1,42 @@
+
+<style>
+  /* Styles for the popup */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 9999;
+  }
+
+  .popup-content {
+    text-align: center;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #about{
+    text-decoration: none;
+    color: inherit; 
+  }
+</style>
 <!doctype html>
 <%- include('./partials/header') %>
   <body>
@@ -7,34 +46,72 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand ms-4 fw-bold" href="#"><span style="font-family: lora,serif;"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop Site</span></a>
+    <a class="navbar-brand ms-4 fw-bold" href="#"><span style="font-family: lora,serif;"><i class="fa-solid fa-truck-fast fa-flip-horizontal" style="color: blue;"></i> SHOPSITE</span></a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fa-brands fa-instagram"></i></span></a>
+        <a class="nav-link" href="#" id="insta"><i class="fa-brands fa-instagram" style="color: blue;"></i></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fa-brands fa-facebook-f"></i></span></a>
+        <a class="nav-link" href="#" id="facebook"><i class="fa-brands fa-facebook-f" style="color: blue;"></i></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fa-brands fa-twitter"></i></span></a>
+        <a class="nav-link" href="#"><i class="fa-brands fa-twitter" style="color: blue;"></i></span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#"><i class="fa-brands fa-snapchat"></i></span></a>
+        <a class="nav-link" href="#"><i class="fa-brands fa-snapchat" style="color: blue;"></i></span></a>
       </li>
       
     </ul>
+
+
+
     <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
         <li class="nav-item active">
-          <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
+          <a class="nav-link" href="#" style="color: blue;" id="aboutBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
+              <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+              <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+            About
+            <span class="sr-only"></span></a>
+        </li>
+  <div id="aboutPopup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h2 style="color: blue;">About This Page</h2>
+    <p>This is a simple Ecommers Website <a href="/" id="about">SHOPSITE</a></p>
+    <p>Discover exclusive deals, shop trendy items, and experience seamless checkout on our innovative e-commerce platform today!</p>
+  </div>
+</div>
+
+
+
+        <li class="nav-item active">
+          <a class="nav-link" id="helpall" href="#" style="color: blue;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-question" viewBox="0 0 16 16">
+              <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745"/>
+              <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+              <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
+            </svg>
+            Help
+            <span class="sr-only"></span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+          <a class="nav-link" href="/login" style="color: blue;"><span class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+              <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+            </svg>
+            Login
+          </span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/login"><span class="">Login</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/signup"><span class="">Register</span></a>
+          <a class="nav-link" href="/signup"><span class="" style="color: blue;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-r-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.5 4.002V12h1.335V8.924H8.52L9.98 12h1.52L9.856 8.701c.828-.299 1.495-1.101 1.495-2.238 0-1.488-1.03-2.461-2.74-2.461H5.5Zm1.335 1.09v2.777h1.549c.995 0 1.573-.463 1.573-1.36 0-.913-.596-1.417-1.537-1.417z"/>
+            </svg>
+            Register
+          </span></a>
         </li>
       </ul>
   </div>
@@ -47,7 +124,8 @@
       <span class='position-absolute fs-5' style="margin-top: 55px;">Shopping Karo Dil Se</span>
       <span class='position-absolute fs-1' style="margin-top: 70px;">ShopSite</span>
     </div>
-    <img src="https://images.pexels.com/photos/5418899/pexels-photo-5418899.jpeg?auto=compress&cs=tinysrgb&w=940&h=550&dpr=4" height="100%" width="100%" alt="">
+    <!-- <img src="https://images.pexels.com/photos/5418899/pexels-photo-5418899.jpeg?auto=compress&cs=tinysrgb&w=940&h=550&dpr=4" height="100%" width="100%" alt=""> -->
+    <%- include('./partials/imageslider.ejs')%>
   </div>
   
   <marquee class=" " style="height: 20px;background-color: #444;"><span style="color: aliceblue;"><pre>Special Offer on <b>5000/-</b> shopping      ||     Buy <span style="color: greenyellow;">2</span> Get <span style="color: greenyellow;">1</span> Free 😍        ||         Special gift for make your day more special❤️</pre></span></marquee>
@@ -61,55 +139,102 @@
       <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none; "><img src="https://thumbs.dreamstime.com/b/fashion-pretty-cool-youngwith-shopping-bags-wearing-black-hat-white-pants-over-colorful-orange-background-79063329.jpg" width="100%" height="100%" style="border-radius: 50px;"></div>
         <div class="ms-4" href="#"> Fashion</div></a>
       </li>
-      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/premium-photo/futuristic-gadgets-showcase-lineup-sleek-modern-technological-devices_977107-682.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-2" href="#"> Electronincs</div></a></li>
-      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/free-vector/medical-design-poster-with-original-medicinal-capsule-consisting-red-white-parts-different-medical-objects_1284-53615.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-3" href="#"> Medicine </div></a></li>
-      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://media.istockphoto.com/id/1415799772/photo/home-interior-with-vintage-furniture.webp?b=1&s=170667a&w=0&k=20&c=7n4U6vnFtYrX-FE84s2GXIzqkBIkvPTAE2uG8mB8MLA=" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-3" href="#"> Furniture </div></a></li>
-      <li><a class="nav-link text-decoration-none" href="#"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://t4.ftcdn.net/jpg/00/17/33/59/360_F_17335975_wezHs72ORL3CY2dFLVi9XtLx4XDOgZBT.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-4"> Sports</div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#" id="aboutBtn"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/premium-photo/futuristic-gadgets-showcase-lineup-sleek-modern-technological-devices_977107-682.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-2" href="#"> Electronincs</div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#" id="aboutBtn"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/free-vector/medical-design-poster-with-original-medicinal-capsule-consisting-red-white-parts-different-medical-objects_1284-53615.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-3" href="#"> Medicine </div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#" id="aboutBtn"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://media.istockphoto.com/id/1415799772/photo/home-interior-with-vintage-furniture.webp?b=1&s=170667a&w=0&k=20&c=7n4U6vnFtYrX-FE84s2GXIzqkBIkvPTAE2uG8mB8MLA=" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-3" href="#"> Furniture </div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#" id="aboutBtn"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://t4.ftcdn.net/jpg/00/17/33/59/360_F_17335975_wezHs72ORL3CY2dFLVi9XtLx4XDOgZBT.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-4"> Sports</div></a></li>
+      <li><a class="nav-link text-decoration-none" href="#" id="aboutBtn"><div style="border: 1px solid black;width: 100px;height: 100px;border-radius: 50px;border: none;"><img src="https://img.freepik.com/premium-psd/hardbook-cover-mockup_793224-597.jpg" width="100%" height="100%" style="border-radius: 50px;"></div><div class=" ms-4" style="font-family: Lora,sans-serif;"> Books</div></a></li>
     </ul>
   </div>
   </div>
   <div class="d-flex justify-content-around">
     <aside class="bg-body-tertiary" style="width: 170px;height: 100px;">
       <p class="mt-3" style="text-align: center;">BRANDS <br>YOU MAY LIKE</p><hr>
+      <!-- < %-include('./partials/filterproduct.ejs')  %> -->
     </aside>
 
-  <div class=" py-5  bg-body-tertiary">
-    <div class="container">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-
-        <% products.forEach(item=>{ %>
-
-            <div class="col">
-                <div class="shadow-sm">
-                    <a href="/login"><img src="<%= item.productimage %>" width="100%" height="250" style="background-size: cover;border-radius: 5px;"></a>
-                    <div class="card-body">
-                      <span class="d-flex justify-content-between">
-                        <h6 class="card-text ms-3 mt-2"><%= item.name %></h6>
-                        <h6 class="card-text me-4 mt-2">Rs.<%= item.price %></h6>
-                        </span>
-
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group mb-4 ms-3 mt-2">
-                              <a href="/productdetails/<%= item.id %>"> <button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>   
-                            </div>
-                            <small class="text-body-secondary"></small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <% }) %>    
-      </div>
+    <div class=" py-5  container bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
+      <!-- <div class="container "> -->
+  
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 container">
+  
+          <% products.forEach(item=>{ %>
+  
+              <div class="col">
+                  <div class="shadow-sm">
+                      <a href="/login"><img src="/<%=item.productimage%>" width="100%" height="250" style="background-size: cover;border-radius: 5px;"></a>
+                      <div class="card-body">
+                        <span class="d-flex justify-content-between">
+                          <h6 class="card-text ms-3 mt-2"><%= item.name %></h6>
+                          <h6 class="card-text me-4 mt-2">Rs.<%= item.price %></h6>
+                          </span>
+                          
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group mb-4 ms-3 mt-2">
+                                <a href="/login"> <button type="button" class="btn btn-sm btn-outline-secondary me-2">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                  </svg>
+                                  View
+                                </button></a>
+                                  <a href="/login"><button type="button" class="btn btn-sm btn-outline-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                    </svg>
+                                    Add to cart
+                                  </button></a>                               
+                              </div>
+                              <small class="text-body-secondary"></small>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <% }) %>
+      
+        </div>
+      <!-- </div> -->
     </div>
-  </div>
   </section>
   </div>
 
 </main>
-
 <%-include('./partials/footer')  %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     </body>
+    <script>
+
+       // Function to open the popup
+  function openPopup() {
+    document.getElementById('aboutPopup').style.display = 'block';
+  }
+
+  // Function to close the popup
+  function closePopup() {
+    document.getElementById('aboutPopup').style.display = 'none';
+  }
+
+  // Event listener for the About button
+  document.getElementById('aboutBtn').addEventListener('click', openPopup);
+
+
+      const facebook = document.getElementById('facebook');
+      facebook.onclick = () => {
+        alert(`Are you vist Ecom facebook page`);
+        window.open("https://www.facebook.com/", "_blank", "height=400,width=600");
+      }
+      const insta = document.getElementById('insta');
+      insta.onclick = () => {
+        alert(`Are you vist Ecom Instagram page`);
+        window.open("https://www.instagram.com/", "_blank", "height=400,width=600");
+      }
+      const help=document.getElementById('helpall');
+      help.onclick = () => {
+        console.log('hi')
+       window.prompt("Tell Me Your Problem").valueOf;
+      }
+      
+
+    </script>
 </html>

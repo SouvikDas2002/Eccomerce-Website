@@ -35,7 +35,14 @@ route.get("/dashboard",async(req,res)=>{
     // console.log(user);
 
     let products=await data.collection("products").find({}).toArray();
-    res.render("./user/dashboard",{uname:req.session.email,products:products,cartNumber,wishNumber,ordersNumber,user:user});
+    let x=[];
+    products.forEach((item)=>{
+      if(item.brand!=undefined)
+      x.push(item.brand);
+    })
+    let brands=new Set(x);
+
+    res.render("./user/dashboard",{uname:req.session.email,products:products,cartNumber,wishNumber,ordersNumber,user:user,brands:brands});
 })
 route.get('/productdetails/:id',async(req,res)=>{
     let cartNumber=await data.collection("cart").find({user:req.session.email}).count();

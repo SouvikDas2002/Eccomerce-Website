@@ -7,7 +7,6 @@ route.use(express.urlencoded({extended:true}));
 let data=require("../mongodb/connection.js");
 const { ObjectId } = require('mongodb');
 const multer=require("multer");
-
 route.use(express.json());
 
 const storage=multer.diskStorage({
@@ -30,7 +29,7 @@ route.get("/dashboard",async (req,res)=>{
 })
 //product details
 route.get("/productdetails",async(req,res)=>{  
-    res.render('./admin/adminproductdetail',{detail:""});
+    res.render('./admin/adminproductdetail',{detail:"Empty data"});
 })
 route.post("/productdetails",async(req,res)=>{
     let product=await data.collection("products").find({_id:new ObjectId(req.body.id)}).toArray();
@@ -51,6 +50,7 @@ route.post("/productadd",upload.single("productimage"), async (req,res)=>{
         stock:req.body.stock,
         productimage:req.file.filename,
         category:req.body.category,
+        brand:req.body.brand
     }
         let newProduct=await data.collection("products").insertOne(newP);
         // console.log(newProduct);
@@ -67,7 +67,7 @@ route.post("/productadd",upload.single("productimage"), async (req,res)=>{
 
 })
 
-// update product
+//*update product
 
 route.get("/productupdate/:id", async(req,res)=>{
     let details=await data.collection("products").find({_id:new ObjectId(req.params.id)}).toArray();
@@ -76,16 +76,19 @@ route.get("/productupdate/:id", async(req,res)=>{
 
 route.post("/productupdate/:id",async(req,res)=>{
     let details=await data.collection("products").findOneAndUpdate({_id:new ObjectId(req.params.id)},{$set:req.body},{returnOriginal:false});
+    console.log(details);
     res.redirect("/admin/dashboard"); 
     if(details){
         let x=details;
         x.opr="Updated";
-        // console.log(x);
-        let operation=await data.collection("history").insertOne(x);
+        console.log(x);
+    //     // console.log(x);
+    //     let operation=await data.collection("history").insertOne(x);
     }else{
         console.log("Operation not performed");
     }
-})
+})  
+
 
 // delete product
 route.get("/productdelete/:id",async(req,res)=>{
@@ -99,7 +102,7 @@ route.get("/productdelete/:id",async(req,res)=>{
             details:delItem.details,
             productimage:delItem.productimage,
             opr:"Deleted"
-
+   
         };
         // console.log(x);
         let operation=await data.collection("history").insertOne(x);
@@ -111,14 +114,14 @@ route.get("/productdelete/:id",async(req,res)=>{
 // search product
 
 route.get('/search',async(req,res)=>{
-    console.log(req.query.id);
     let searchData = await data.collection('products').find({_id:new ObjectId( req.query.id) }).toArray();
     res.render('./admin/admindash',{productdetails:searchData,admin:req.session.email})
     // console.log(searchData);
 })
 
 route.get("/profile",(req,res)=>{
-    res.send("user profile page");
+   // res.send("user profile page");
+   res.render('./admin/orderdetails');
 })
 route.get("/history",async(req,res)=>{
     let products=await data.collection("history").find({}).toArray();

@@ -1,23 +1,19 @@
 const express = require("express");
 const app = express();
-const PORT=3000;
+const PORT=4000;
 const fs = require("fs");
 const path = require("path");
-let data=require('./mongodb/connection');
+let data=require('./mongodb/connection.js');
+app.use(express.static("./views/Banner"));
 const login=require("./login.js");
-const signup=require('./signup');
+const signup=require('./signup.js');
 const cookieparser = require("cookie-parser");
 const session = require("express-session");
 app.use(cookieparser());
 const oneday = 1000 * 60 * 60 * 24;
-
-
-
 app.set("view engine","ejs")
-
-// session management
-
-app.use(
+ //*session management
+app.use( 
   session({
     saveUninitialized: true,
     resave: false,
@@ -25,50 +21,47 @@ app.use(
     cookie: { maxAge: oneday },
   })
 );
-
-
-
-// route and authentication middleware
+//*route and authentication middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,"/productImage")));
 app.use(express.static(path.join(__dirname,"/comment")));
 app.use(express.static(path.join(__dirname,"/profilepic")));
 
-const userRoute = require("./router/userRoutes");
-const adminRoute = require("./router/adminRoutes");
+const userRoute = require("./router/userRoutes.js");
+const adminRoute = require("./router/adminRoutes.js");
 
-app.use("/users",auth, userRoute);  //user route
-app.use("/admin",auth, adminRoute); //admin route
+app.use("/users",userRoute);  //user route
+app.use("/admin",adminRoute); //admin route
 
-//session-authentication
+//*session-authentication 
 function auth(req, res, next) {
   if (req.session.email)
   next();
 else res.redirect("/");
-}
+}      
 
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
-//logout
-app.get("/logout", (req, res) => {
+//*logout
+app.get("/logout", (req, res) => {  
   req.session.destroy();
   res.redirect("/");
 });
-
+   
 
 app.get("/",async (req,res,next)=>{
   console.log(req.session.email);
   let products=await data.collection('products').find().toArray();
   res.render("index",{products:products});
 });
-
-// log-in
+   
+//*log-in
 app.use('/login',login);
 
-//signup
+//*signup
 app.use('/signup',signup);
 
-// Update password
+//*Update password
 
 app.get('/changepwd',(req,res)=>{
   res.render('changepwd');
@@ -86,7 +79,7 @@ app.post('/changepwd',(req,res)=>{
 // else
 // console.log("got some issue");
 // })
-data(function (res) {
+data(function (res) {  
   if (data) data = res;
   else {
     console.log("not valid user");
@@ -95,4 +88,6 @@ data(function (res) {
 
 app.listen(PORT, (err) => {
   console.log(`Server running on port number ${PORT}`);
+  console.log('Mongoose is connected');
+  // console.log('Mongoose is connected');
 });

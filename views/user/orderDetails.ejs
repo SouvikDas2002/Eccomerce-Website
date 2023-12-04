@@ -1,184 +1,213 @@
 <!DOCTYPE html>
 <%- include('.././partials/header') %>
-<html lang="en">
+  <html lang="en">
 
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Form</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body {
-            background-color: #f4f4f4;
-        }
+      body {
+        background-color: #f4f4f4;
+      }
 
-        .order-form-container{
-            margin-top: 30px;
-            margin-bottom: 30px;
-            /* background-color: #fff;
+      .order-form-container {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        /* background-color: #fff;
             border: 1px solid #ddd; */
-            padding: 20px;
-        }
+        padding: 20px;
+      }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+      .form-group {
+        margin-bottom: 20px;
+      }
 
-        .form-group label {
-            font-weight: bold;
-        }
+      .form-group label {
+        font-weight: bold;
+      }
 
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-        }
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
 
-        .submit-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #f0c14b;
-            border: 1px solid #a88734;
-            border-radius: 3px;
-            color: #111;
-            font-size: 16px;
-            cursor: pointer;
-        }
+      .submit-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f0c14b;
+        border: 1px solid #a88734;
+        border-radius: 3px;
+        color: #111;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-        .submit-button:hover {
-            background-color: #f7dfa5;
-        }
+      .submit-button:hover {
+        background-color: #f7dfa5;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed overflow-hidden z-3" style="width: 100%">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand ms-4 fw-bold" href="#"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop Site</a>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fa-brands fa-instagram"></i></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fa-brands fa-facebook-f"></i></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fa-brands fa-twitter"></i></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="fa-brands fa-snapchat"></i></span></a>
-              </li>
-              
-            </ul>
-            <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
-              <li class="nav-item active">
-                <a class="nav-link" href="/users/dashboard">Home <span class="sr-only"></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/users/orders/cart">Cart <sup style="color: red;"><b><%= cartNumber %></b></sup><span class="sr-only"></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/users/orders/myOrders">My Orders <sup style="color: red;"><b><%= ordersNumber %></b></sup><span class="sr-only"></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/users/orders/wishlist">Wishlist <sup style="color: red;"><b><%= wishNumber %></b></sup><span></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
-              </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
-                </li>
-        
-              <li class="nav-item active">
-                <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
-              </li>
-           
-              
-            </ul>
-           
-         
-          </div>
-        </nav>
-        </header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light position-fixed overflow-hidden z-3" style="width: 100%">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand ms-4 fw-bold" href="#"><i class="fa-solid fa-truck-fast fa-flip-horizontal"></i> Shop
+            Site</a>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><i class="fa-brands fa-instagram"></i></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><i class="fa-brands fa-facebook-f"></i></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><i class="fa-brands fa-twitter"></i></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><i class="fa-brands fa-snapchat"></i></span></a>
+            </li>
+
+          </ul>
+          <ul class="navbar-nav ms-auto mt-2 mt-lg-0 me-4" style="font-family: Lora,sans-serif;">
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/dashboard">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/orders/cart">Cart <sup style="color: red;"><b>
+                    <%= cartNumber %>
+                  </b></sup><span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/orders/myOrders">My Orders <sup style="color: red;"><b>
+                    <%= ordersNumber %>
+                  </b></sup><span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/orders/wishlist">Wishlist <sup style="color: red;"><b>
+                    <%= wishNumber %>
+                  </b></sup><span></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/profile">Profile<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/profile">About<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/users/profile">Help<span class="sr-only"></span></a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" href="/logout">Logout<span class="sr-only"></span></a>
+            </li>
+
+
+          </ul>
+
+
+        </div>
+      </nav>
+    </header>
 
     <div class="py-5 container">
-        <div class="row">
-            <div class="col-md-9 offset-md-2">
-                <div class="order-form-container" >
-                    <h2 style="font-family: Lora,sans-serif;">Please Confirm Your Order </h2>
-                    <div class="d-flex mb-3">
-                      <% if(multiproduct) {%>
-                       <% multiproduct.productimage.forEach(image => { %> 
-                        <img src="/<%= image %>" width="100" height="100" style="background-size: cover; border-radius: 5px; margin-right: 10px;">
-                        <% }); %>
-                        <% } else{ %>
-                          <img src="/<%= product.productimage %>" width="100" height="100" style="background-size: cover; border-radius: 5px; margin-right: 10px;">
-                        <% } %> 
+      <div class="row">
+        <div class="col-md-9 offset-md-2">
+          <div class="order-form-container">
+            <h2 style="font-family: Lora,sans-serif;">Please Confirm Your Order </h2>
+            <div class="d-flex mb-3">
+              <% if(multiproduct) {%>
+                <% multiproduct.productimage.forEach(image=> { %>
+                  <img src="/<%= image %>" width="100" height="100"
+                    style="background-size: cover; border-radius: 5px; margin-right: 10px;">
+                  <% }); %>
+                    <% } else{ %>
+                      <img src="/<%= product.productimage %>" width="100" height="100"
+                        style="background-size: cover; border-radius: 5px; margin-right: 10px;">
+                      <% } %>
                         <div class="d-flex flex-column ms-2">
-                        <p>Product Name: <b><%= (multiproduct)? multiproduct.name:product.name %></b></p>
-                        <p>Total Price: <b><%= (multiproduct)? multiproduct.price:product.price %>.00</b></p>
+                          <p>Product Name: <b>
+                              <%= (multiproduct)? multiproduct.name:product.name %>
+                            </b></p>
+                          <p>Total Price: <b>
+                              <%= (multiproduct)? multiproduct.price:product.price %>.00
+                            </b></p>
                         </div>
-                    </div>
-                    <p>Please Fill the below form with correct details</p>
-                    <form action="/users/orders/<%=(multiproduct)?"multiple":product._id%>" method="post">
-                        <div class="form-group">
-                            <label for="name">*Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">*Email</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="number">*Number</label>
-                            <input type="number" name="number" class="form-control" id="number" placeholder="Contact number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">*Address</label>
-                            <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" name="city" class="form-control" id="address" placeholder="Enter your address">
-                        </div>
-                        <div class="form-group">
-                            <label for="state">*State</label>
-                            <input type="text" name="state" class="form-control" id="address" placeholder="Enter your address" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="pincode">*Pincode</label>
-                            <input type="text" name="zipcode" class="form-control" id="address" placeholder="Enter your address" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity">*Quantity</label>
-                            <input type="number" name="quantity" class="form-control" id="quantity" placeholder="Enter quantity" required>
-                        </div>
-                        <button type="submit" class="submit-button">Confirm</button>
-                    </form>
-                </div>
             </div>
+            <p>Please Fill the below form with correct details</p>
+            <form action="/users/orders/<%=(multiproduct)?" multiple":product._id%>" method="post">
+              <div class="form-group">
+                <label for="name">*Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">*Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="number">*Number</label>
+                <input type="number" name="number" class="form-control" id="number" placeholder="Contact number"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="address">*Address</label>
+                <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="city" class="form-control" id="address" placeholder="Enter your address">
+              </div>
+              <div class="form-group">
+                <label for="state">*State</label>
+                <input type="text" name="state" class="form-control" id="address" placeholder="Enter your address"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="pincode">*Pincode</label>
+                <input type="text" name="zipcode" class="form-control" id="address" placeholder="Enter your address"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="quantity">*Quantity</label>
+                <input type="number" name="quantity" class="form-control" id="quantity" placeholder="Enter quantity"
+                  required>
+              </div>
+
+<!-- Qr code payment  -->
+              <div id="paymentQRCode">
+                <img src="/images/qrcode.jpeg" alt="Payment QR Code" width="150px" height="150px">
+              </div>
+<!-- multer payment data uplod by user -->
+<form action="/payment" method="post" enctype="multipart/form-data">
+  <input type="file">
+</form>
+              <button type="submit" class="submit-button">Confirm</button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <script>
-        var btn=document.querySelector("button");
-        btn.onclick=function(){
-            var value=400;
-            var qty=document.getElementById("quantity").value;
-            value=value*qty;
-        }
-        
+      var btn = document.querySelector("button");
+      btn.onclick = function () {
+        var value = 400;
+        var qty = document.getElementById("quantity").value;
+        value = value * qty;
+      }
+
     </script>
 
-</body>
+  </body>
 
-</html>
+  </html>

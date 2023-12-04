@@ -115,8 +115,7 @@
     </form>
   </div>
     </div>
-    
-      <% if(detail) { %>
+      <% if(detail[0]!==undefined) { %>
         <div class="album py-5">
           <div class="container">
             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-3">
@@ -145,7 +144,10 @@
             </div>
           </div>
         </div>
-      <% } %>
+      <% } else{%>
+        <center class="mt-4"><h3>NO DATA FOUND</h3></center>
+        <%}%>
+      
     
     
 
