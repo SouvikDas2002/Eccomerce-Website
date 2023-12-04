@@ -52,7 +52,14 @@ app.get("/logout", (req, res) => {
 app.get("/",async (req,res,next)=>{
   console.log(req.session.email);
   let products=await data.collection('products').find().toArray();
-  res.render("index",{products:products});
+  // let products=await data.collection("products").find({}).toArray();
+    let x=[];
+    products.forEach((item)=>{
+      if(item.brand!=undefined)
+      x.push(item.brand);
+    })
+    let brands=new Set(x);
+  res.render("index",{products:products,brands:brands});
 });
    
 //*log-in
