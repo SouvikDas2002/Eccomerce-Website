@@ -1,0 +1,37 @@
+<!-- <p>< % = brand%></p> -->
+    <div class="products-catalogue ms-3">
+        <div class="filter-left">
+          <div class="midsizeplus" style="padding: 20px 20px">FILTERS</div>
+          <div class="filters">
+            <div class="filter-categories">
+              <p style="color: red;">Brands</p>
+                <% brands.forEach((item=>{%>
+                    <%if(item!=undefined){%>
+                    <input
+                    type="checkbox"
+                    id="filter"
+                    value=""
+                    onclick="filter('chakebox')"
+                  />
+                  <label for=""><%=item%></label><br />
+                    <%}%>
+                    <%}))%>
+            </div>
+
+
+<hr>
+
+            <div class="filter-categories">
+              <p style="color:red">Price</p>
+              <input
+                type="checkbox"
+              />
+              <label>Below 1000</label><br />
+              
+              <input
+                type="checkbox"
+              />
+              <label>Above 1000</label><br />
+             
+              
+            </div>
