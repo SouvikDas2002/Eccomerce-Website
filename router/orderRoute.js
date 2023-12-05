@@ -95,6 +95,7 @@ order.get("/cart/:productname",async(req,res)=>{
         productimage:productSelect[0].productimage,
         user:req.session.email
     }
+    console.log(req.session.email);
     let existUser = await data.collection("cart").findOne({$and:[{ user: cartProduct.user },{name: cartProduct.name }]});
 
   if (existUser) {

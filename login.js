@@ -1,9 +1,14 @@
 const express = require("express");
 const login = express.Router();
-const fs = require("fs");
 const bcrypt = require("bcrypt");
-const { equal } = require("assert");
 let user = require("./mongodb/connection");
+const passport = require("passport");
+require('dotenv').config();
+require("./passport-setup")
+const cookieSession=require('cookie-session');
+
+login.use(passport.initialize());
+login.use(passport.session());
 
 login.get("/", (req, res) => {
   if (req.session.email && req.session.role == "user")
@@ -86,6 +91,34 @@ else res.render("login", { message: "" });
     }
   }
 });
+login.get("/google",passport.authenticate("google",{scope:['profile','email']}))
+
+login.get('/google/callback',passport.authenticate('google',{failureRedirect:'/login'}),
+ async function(req,res){
+    // console.log(req.user.email)
+    req.session.email=req.user.email;
+    req.session.role="user";
+    req.session.username=req.user.displayName;
+    req.session.profilepic=req.user.photos[0].value;
+
+    let validuser=await user.collection("users").findOne({email:req.user.email});
+    console.log(validuser);
+    if(!validuser){
+      let newUser={
+        email:req.user.email,
+        role:"user",
+        username:req.user.displayName,
+        profilepic:req.user.photos[0].value
+      }
+      let result=await user.collection("users").insertOne(newUser);
+      console.log(result);
+    } 
+
+    res.redirect('/users/dashboard');
+  
+}
+)
+
 user(function (res) {
   if (user) user = res;
   else {

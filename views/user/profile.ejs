@@ -74,7 +74,11 @@
         <div class="">
             <div class="profile-section">
               <div class="profile-picture" style="border: 1px solid black;">
-                <a href="#"><img src="/<%= userdetail.profilepic %>" alt=""></a>
+                <% if(userdetail.profilepic.slice(0,5)=="https"){%>
+                <a href="#"><img src="<%= userdetail.profilepic %>" alt="profilepic"></a>
+                <%}else{%>
+                  <a href="#"><img src="/<%= userdetail.profilepic %>" alt="profilepic"></a>
+                  <%}%>
               </div>
               <p class="text-center"><span id="usernaam" style="font-weight: 600;font-size: 35px;"><%= userdetail.username %> </span><span id="edit" style="cursor: pointer;"><i class="fa-regular fa-pen-to-square"></i></span></p>
               <form class="text-center" action="/users/updateProfile" method="post" style="display: none;" enctype="multipart/form-data">

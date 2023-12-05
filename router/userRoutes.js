@@ -41,7 +41,6 @@ route.get("/dashboard",async(req,res)=>{
       x.push(item.brand);
     })
     let brands=new Set(x);
-
     res.render("./user/dashboard",{uname:req.session.email,products:products,cartNumber,wishNumber,ordersNumber,user:user,brands:brands});
 })
 route.get('/productdetails/:id',async(req,res)=>{
@@ -80,7 +79,7 @@ route.get("/profile",async(req,res)=>{
     const ordersHistory=await data.collection("orders").find({"primaryEmail":req.session.email}).sort({_id:-1}).toArray()
     // console.log(ordersHistory);
     let userProfile=await data.collection("users").findOne({email:req.session.email});
-    // console.log(userProfile)
+    console.log(userProfile)
     res.render("./user/profile",{userdetail:userProfile,cartNumber,wishNumber,ordersNumber,orders:ordersHistory});
 })
 
