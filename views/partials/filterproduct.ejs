@@ -9,11 +9,11 @@
                     <%if(item!=undefined){%>
                     <input
                     type="checkbox"
-                    id="filter"
-                    value=""
-                    onclick="filter('chakebox')"
+                    id="<%= item %>"
+                    value="<%= item %>"
+                    onclick="filter('brand','<%= item %>')"
                   />
-                  <label for=""><%=item%></label><br />
+                  <label for="<%= item %>"><%=item%></label><br />
                     <%}%>
                     <%}))%>
             </div>
@@ -25,11 +25,17 @@
               <p style="color:red">Price</p>
               <input
                 type="checkbox"
+                id="below1000"
+                value="below1000"
+                onclick="filter('price', 'below1000')"
               />
               <label>Below 1000</label><br />
               
               <input
-                type="checkbox"
+              type="checkbox"
+              id="above1000"
+              value="above1000"
+              onclick="filter('price','above1000')"
               />
               <label>Above 1000</label><br />
              

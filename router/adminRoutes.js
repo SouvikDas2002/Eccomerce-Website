@@ -45,7 +45,7 @@ route.post("/productadd",upload.single("productimage"), async (req,res)=>{
     // console.log(req.body);
     let newP={
         name:req.body.name,
-        price:req.body.price,
+        price:parseInt(req.body.price),
         details:req.body.details,
         stock:req.body.stock,
         productimage:req.file.filename,

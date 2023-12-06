@@ -30,8 +30,8 @@ app.use(express.static(path.join(__dirname,"/profilepic")));
 const userRoute = require("./router/userRoutes.js");
 const adminRoute = require("./router/adminRoutes.js");
 
-app.use("/users",auth,userRoute);  //user route
-app.use("/admin",auth,adminRoute); //admin route
+app.use("/users",userRoute);  //user route
+app.use("/admin",adminRoute); //admin route
 
 //*session-authentication 
 function auth(req, res, next) {

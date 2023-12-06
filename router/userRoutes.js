@@ -67,9 +67,39 @@ route.get("/category/:cat",async(req,res)=>{
       x.push(item.brand);
     })
     let brands=new Set(x);
+    // res.json({uname:req.session.email,products:category,cartNumber,wishNumber,ordersNumber,brands:brands})
     res.render("./user/dashboard",{uname:req.session.email,products:category,cartNumber,wishNumber,ordersNumber,brands:brands});
 
 })  
+route.post("/filterProducts",async(req,res)=>{
+  const filters = req.body;
+
+    try {
+      // Construct the MongoDB query based on filters
+      const query = {};
+
+      if (filters.brand) {
+        query.brand = filters.brand;
+      }
+      
+      if (filters.price) {
+        if (filters.price === 'below1000') {
+          query.price = { $lt: 1000 };
+        } else if (filters.price === 'above1000') {
+          query.price = { $gte: 1000 };
+        }
+      }
+
+      // Fetch filtered products from MongoDB
+      const products = await data.collection("products").find(query).toArray();
+
+      // Send the filtered products as a JSON response
+      res.json(products);
+    } catch (error) {
+      console.error('Error filtering products:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
 
 route.get("/profile",async(req,res)=>{
     let cartNumber=await data.collection("cart").find({user:req.session.email}).count();
@@ -79,7 +109,7 @@ route.get("/profile",async(req,res)=>{
     const ordersHistory=await data.collection("orders").find({"primaryEmail":req.session.email}).sort({_id:-1}).toArray()
     // console.log(ordersHistory);
     let userProfile=await data.collection("users").findOne({email:req.session.email});
-    console.log(userProfile)
+    // console.log(userProfile)
     res.render("./user/profile",{userdetail:userProfile,cartNumber,wishNumber,ordersNumber,orders:ordersHistory});
 })
 
