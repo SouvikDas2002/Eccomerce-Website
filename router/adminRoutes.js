@@ -119,10 +119,19 @@ route.get('/search',async(req,res)=>{
     // console.log(searchData);
 })
 
-route.get("/profile",(req,res)=>{
-   // res.send("user profile page");
-   res.render('./admin/orderdetails');
-})
+
+
+//*Orders details pages
+route.get("/orderdetails",async(req,res)=>{
+    let ordersdetails=await data.collection("orders").find({}).toArray().then((x)=>{
+        res.render('./admin/orderdetails',{orders:x}); 
+        console.log(x.name);
+    }) 
+})     
+    
+
+
+
 route.get("/history",async(req,res)=>{
     let products=await data.collection("history").find({}).toArray();
     res.render("./admin/history",{productdetails:products});
@@ -134,5 +143,6 @@ data(function(res){
 else
 console.log("got some issue");
 })
+
 // data=data.getData();
 module.exports=route;

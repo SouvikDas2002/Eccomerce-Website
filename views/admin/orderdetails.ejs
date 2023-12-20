@@ -1,1 +1,152 @@
-Order Details page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* Table Styles */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center; /* Center aligning content */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Form Styles */
+        input[type="text"], select {
+            width: calc(100% - 18px); /* Adjusted width considering padding and border */
+            padding: 5px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: blue; /* Change this to your preferred shade of blue */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue; /* Change this to your preferred shade of dark blue on hover */
+        }
+        /* Header Styles */
+        .pt-4 {
+            padding-top: 1rem;
+        }
+        .ps-2 {
+            padding-left: 0.5rem;
+        }
+        /* Other Styles */
+        body {
+            font-family: 'Lora', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="pt-4">
+        <h2 class="pt-5 ps-2" style="font-family: Lora, sans-serif;"><a href="/admin/dashboard">Order Details Page</a></h2>
+    </div>
+    <table border="1" class="table mt-4">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Product image</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Order Date</th>
+                <th>City</th>
+                <th>Delivery Address</th>
+                <th>Any query</th>
+                <th>Payment Type</th>
+                <th>Confirm / Cancel</th>
+                <th>Invoice</th>
+                <th>Submit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orders.forEach((item) => { %>
+                <tr>
+                    <td><%=item.name%></td>
+                    <td>
+                        <center><img src="/<%=item.productimage%>" alt="product image" style="border: 1px solid black;" width="100px" height="100px"></center>
+                    </td>
+                    <td><%=item.productname%></td>
+                    <td><%=item.totalAmount%></td>
+                    <td><%=item.quantity%></td>
+                    <td><%=item.dateTime%></td>
+                    <td><%=item.city%></td>
+                    <td><%=item.address%></td>
+                    <td>
+                        <textarea placeholder="Any query" id="query"></textarea>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">Debit card</option>
+                            <option value="">Credit card</option>
+                            <option value="">Net banking</option>
+                            <option value="">Cash on delivery</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="radio" name="confirmation" value="confirm"> Confirm
+                        </label>
+                        <label>
+                            <input type="radio" name="confirmation" value="cancel"> Cancel
+                        </label>
+                    </td>
+                    <td>
+                        <button class="invoice" onclick="generateInvoice(<%= JSON.stringify(item) %>)">Invoice</button>
+                    </td>
+                    <td>
+                        <button class="submit">Submit</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <script>
+        const buttons = document.querySelectorAll('.submit');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert("Are you sure you want to submit the user data?");
+                const queryValue = button.parentElement.parentElement.querySelector('#query').value;
+                console.log('Query:', queryValue);
+            });
+        });
+
+        function generateInvoice(item) {
+            // Create a new HTML element to render the invoice content
+            const invoiceContent = 
+            `
+                <h2>Invoice for Order ShopSite</h2>
+                <p>User Name: ${item.name}</p>
+                <p>Product Name: ${item.productname}</p>
+                <p>Quantity select: ${item.quantity}</p>
+                <p>Delivery Date: ${item.dateTime}</p>
+                <p>Delivery city: ${item.city}</p>
+                <p>Delivery Address: ${item.address}</p>
+                <p>Total Amount: ${item.totalAmount}</p>
+            `
+            ;
+        
+            // Convert the HTML content to a Blob
+            const blob = new Blob([invoiceContent], { type: 'text/html' });
+        
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = `Invoice_${item.name}_${item.dateTime}.html`; // Set the filename
+        
+            // Trigger the download
+            downloadLink.click();
+        }
+        
+    </script>
+</body>
+</html>

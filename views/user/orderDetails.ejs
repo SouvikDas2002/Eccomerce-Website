@@ -8,6 +8,54 @@
     <title>Order Form</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        z-index: 9999;
+      }
+  
+      /* Styling for the card form */
+      .card-form {
+        background: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        width: 300px;
+        max-width: 100%;
+      }
+  
+      .card-header {
+        background: linear-gradient(to right, #ff5e62, #ff9966);
+        color: #fff;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+      }
+  
+      /* Input field styling */
+      input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+      }
+  
+      
+  
+      button:hover {
+        background-color: blue;
+      }
       body {
         background-color: #f4f4f4;
       }
@@ -181,12 +229,38 @@
                   required>
               </div>
 
+              <button id="showOptions">Payment</button>
               <button type="submit" class="submit-button">Confirm</button>
             </form>
           </div>
         </div>
       </div>
     </div>
+
+
+    <div class="popup" id="paymentPopup">
+      <div class="card-form">
+        <div class="card-header">Debit Card -Shopsite</div>
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" placeholder="Enter card number">
+        
+        <label for="cardHolder">Cardholder Name:</label>
+        <input type="text" id="cardHolder" placeholder="Enter cardholder name">
+        
+        <div style="display: flex;">
+          <div style="flex: 1; margin-right: 10px;">
+            <label for="expiryDate">Expiration Date:</label>
+            <input type="text" id="expiryDate" placeholder="MM/YYYY">
+          </div>
+          <div style="flex: 1;">
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" placeholder="CVV">
+          </div>
+        </div>
+        <button id="confirmPayment">Confirm Payment</button>
+      </div>
+    </div>
+
 
     <script>
       var btn = document.querySelector("button");
@@ -196,6 +270,12 @@
         value = value * qty;
       }
 
+      document.getElementById('showOptions').addEventListener('click', function() {
+        document.getElementById('paymentPopup').style.display = 'block';
+      });
+      document.getElementById('confirmPayment').addEventListener('click', function() {
+      document.getElementById('paymentPopup').style.display = 'none';
+      });
     </script>
 
   </body>
