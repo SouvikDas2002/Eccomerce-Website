@@ -7,6 +7,7 @@ let data=require('./mongodb/connection.js');
 app.use(express.static("./views/Banner"));
 const login=require("./login.js");
 const signup=require('./signup.js');
+require("dotenv").config();
 const cookieparser = require("cookie-parser");
 const session = require("express-session");
 app.use(cookieparser());
@@ -29,9 +30,11 @@ app.use(express.static(path.join(__dirname,"/profilepic")));
 
 const userRoute = require("./router/userRoutes.js");
 const adminRoute = require("./router/adminRoutes.js");
+// const paymentRoute = require('./router/paymentRoute.js');
+// app.use('/payment',paymentRoute);
 
 app.use("/users",userRoute);  //user route
-app.use("/admin",adminRoute); //admin route
+app.use("/admin",adminRoute); //admin route 
 
 //*session-authentication 
 function auth(req, res, next) {
@@ -41,6 +44,8 @@ else res.redirect("/");
 }      
 
 app.use(express.static("public"));
+
+
 
 //*logout
 app.get("/logout", (req, res) => {  
@@ -86,6 +91,7 @@ data(function (res) {
     console.log("not valid user");
   }
 });
+
 
 app.listen(PORT, (err) => {
   console.log(`Server running on port number ${PORT}`);

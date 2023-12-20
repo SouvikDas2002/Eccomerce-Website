@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Popup Example</title>
+  <style>
+    /* Styling for the popup */
+    
+  </style>
+</head>
+<body>
+
+  <!-- Button to show the payment options -->
+  <button id="showOptions">Show Payment Options</button>
+
+  <!-- Payment popup -->
+  <div class="popup" id="paymentPopup">
+    <div class="card-form">
+      <div class="card-header">Debit Card</div>
+      <label for="cardNumber">Card Number:</label>
+      <input type="text" id="cardNumber" placeholder="Enter card number">
+      
+      <label for="cardHolder">Cardholder Name:</label>
+      <input type="text" id="cardHolder" placeholder="Enter cardholder name">
+      
+      <div style="display: flex;">
+        <div style="flex: 1; margin-right: 10px;">
+          <label for="expiryDate">Expiration Date:</label>
+          <input type="text" id="expiryDate" placeholder="MM/YYYY">
+        </div>
+        <div style="flex: 1;">
+          <label for="cvv">CVV:</label>
+          <input type="text" id="cvv" placeholder="CVV">
+        </div>
+      </div>
+      
+      <button id="confirmPayment">Confirm Payment</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to show the payment popup
+    document.getElementById('showOptions').addEventListener('click', function() {
+      document.getElementById('paymentPopup').style.display = 'block';
+    });
+
+    // Function to hide the payment popup when the confirm button is clicked
+    document.getElementById('confirmPayment').addEventListener('click', function() {
+      // Add your logic here to handle the payment information
+      // For demo purposes, let's just hide the popup
+      document.getElementById('paymentPopup').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

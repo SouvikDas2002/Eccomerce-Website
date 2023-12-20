@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Sales Trends</title>
+  <style>
+    .chart-container {
+      width: 1500px;
+      height: 500px;
+      border: 1px solid white;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .circle-chart {
+      width: 400px;
+      height: 400px;
+    }
+
+    canvas {
+      image-rendering: auto; /* Adjust the image rendering */
+    }
+  </style>
+</head>
+<body>
+  <img src="banner.jpg" alt="Banner Image" class="banner-img">
+
+  <div class="chart-container">
+    <div class="circle-chart">
+      <canvas id="circleChart" width="400" height="400"></canvas>
+    </div>
+    <div class="line-chart">
+      <canvas id="lineChart" width="1200" height="400"></canvas>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let lineChart;
+    let circleChart;
+
+    // Function to create the initial line chart
+    function createLineChart() {
+      const canvas = document.getElementById('lineChart');
+      const ctx = canvas.getContext('2d');
+
+      const chartData = {
+        labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', 'Saturday'],
+        datasets: Object.keys(productData).map(product => ({
+          label: `Product ${product}`,
+          data: productData[product],
+          fill: false,
+          borderColor: getRandomColor(),
+          tension: 0.4
+        }))
+      };
+
+      const options = {
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Days'
+            }
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Sales'
+            }
+          }
+        }
+      };
+
+      lineChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: options
+      });
+    }
+
+    // Function to create the circle chart
+    function createCircleChart() {
+      const canvas = document.getElementById('circleChart');
+      const ctx = canvas.getContext('2d');
+
+      const chartData = {
+        labels: Object.keys(productData),
+        datasets: [{
+          label: 'Sales',
+          data: Object.keys(productData).map(product => productData[product][productData[product].length - 1]),
+          backgroundColor: Object.keys(productData).map(() => getRandomColor())
+        }]
+      };
+
+      const options = {
+        responsive: false,
+        plugins: {
+          legend: {
+            position: 'right',
+          }
+        }
+      };
+
+      circleChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: chartData,
+        options: options
+      });
+    }
+
+    // Function to generate random color
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Random data for initial sales trends (just for demonstration)
+    const productData = {
+      Electronic: [100, 120, 90, 110, 130, 95, 105],
+      Medicine: [80, 70, 90, 85, 100, 75, 95],
+      Sports: [110, 130, 120, 140, 115, 135, 125],
+      Dress: [70, 90, 85, 95, 80, 100, 75],
+      Furniture: [120, 100, 110, 105, 115, 125, 130]
+    };
+
+    // Function to update chart data randomly
+    function updateChartData() {
+      Object.keys(productData).forEach(product => {
+        const newData = productData[product].map(value => {
+          const upOrDown = Math.random() >= 0.5 ? 1 : -1; // Randomly choose up or down
+          const change = Math.floor(Math.random() * 10) * upOrDown; // Randomly change value
+          return Math.max(0, value + change); // Ensure the value doesn't go below 0
+        });
+        productData[product] = newData;
+      });
+
+      lineChart.data.datasets.forEach((dataset, index) => {
+        dataset.data = productData[Object.keys(productData)[index]];
+      });
+
+      circleChart.data.datasets[0].data = Object.keys(productData).map(product => productData[product][productData[product].length - 1]);
+
+      lineChart.update();
+      circleChart.update();
+    }
+
+    // Call the function to create the initial charts
+    createLineChart();
+    createCircleChart();
+
+    // Update chart data every 3 seconds
+    setInterval(updateChartData, 3000);
+  </script>
+</body>
+</html>
