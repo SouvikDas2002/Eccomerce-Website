@@ -3,7 +3,6 @@ const signUp = express.Router();
 const fs = require("fs");
 const bcrypt=require('bcrypt');
 let newuser=require('./mongodb/connection');
-
 signUp.get("/", (req, res) => {
   res.render("signUp");
 });
