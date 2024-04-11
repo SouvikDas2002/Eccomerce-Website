@@ -6,16 +6,18 @@
   <style>
     .chart-container {
       width: 1500px;
-      height: 500px;
+      height: 600px; /* Adjusted height for better visualization */
       border: 1px solid white;
       display: flex;
       justify-content: space-around;
       align-items: center;
+      flex-wrap: wrap; /* Added flex-wrap for responsive layout */
     }
 
-    .circle-chart {
+    .chart {
       width: 400px;
       height: 400px;
+      margin-bottom: 20px; /* Added margin for spacing between charts */
     }
 
     canvas {
@@ -27,11 +29,14 @@
   <img src="banner.jpg" alt="Banner Image" class="banner-img">
 
   <div class="chart-container">
-    <div class="circle-chart">
+    <div class="chart">
       <canvas id="circleChart" width="400" height="400"></canvas>
     </div>
-    <div class="line-chart">
-      <canvas id="lineChart" width="1200" height="400"></canvas>
+    <div class="chart">
+      <canvas id="lineChart" width="400" height="400"></canvas>
+    </div>
+    <div class="chart">
+      <canvas id="barChart" width="400" height="400"></canvas>
     </div>
   </div>
   
@@ -39,6 +44,7 @@
   <script>
     let lineChart;
     let circleChart;
+    let barChart;
 
     // Function to create the initial line chart
     function createLineChart() {
@@ -48,33 +54,55 @@
       const electronicsCount = <%= categoryCounts.electronics || 0 %>; // Category count for electronics
       const furnitureCount = <%= categoryCounts.furniture || 0 %>; // Category count for furniture
       const medicineCount = <%= categoryCounts.medicine || 0 %>; // Category count for medicine
-      // Add similar variables for other categories if needed
+      const fashionCount = <%= categoryCounts.fashion || 0 %>; // Category count for fashion
+      const booksCount = <%= categoryCounts.books || 0 %>; // Category count for books
+      const sportsCount = <%= categoryCounts.sports || 0 %>; // Category count for sports
 
       const chartData = {
         labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         datasets: [
           {
-            label: `Product Electronics`,
-            data: [electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount],
+            label: `Electronics`,
+            data: [0, electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount],
             borderColor: '#000',
             backgroundColor: '#00FF00', // Green
             tension: 0.4
           },
           {
-            label: `Product Furniture`,
-            data: [furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount],
+            label: `Furniture`,
+            data: [0, furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount],
             borderColor: '#000',
             backgroundColor: '#FFFF00', // Yellow
             tension: 0.4
           },
           {
-            label: `Product Medicine`,
-            data: [medicineCount, medicineCount, medicineCount, medicineCount, medicineCount, medicineCount, medicineCount],
+            label: `Medicine`,
+            data: [0, medicineCount, medicineCount, medicineCount, medicineCount, medicineCount, medicineCount],
             borderColor: '#000',
             backgroundColor: '#FF0000', // Red
             tension: 0.4
+          },
+          {
+            label: `Fashion`,
+            data: [0, fashionCount, fashionCount, fashionCount, fashionCount, fashionCount, fashionCount],
+            borderColor: '#000',
+            backgroundColor: '#0000FF', // Blue
+            tension: 0.4
+          },
+          {
+            label: `Books`,
+            data: [0, booksCount, booksCount, booksCount, booksCount, booksCount, booksCount],
+            borderColor: '#000',
+            backgroundColor: '#FF00FF', // Purple
+            tension: 0.4
+          },
+          {
+            label: `Sports`,
+            data: [0, sportsCount, sportsCount, sportsCount, sportsCount, sportsCount, sportsCount],
+            borderColor: '#000',
+            backgroundColor: '#FFA500', // Orange
+            tension: 0.4
           }
-          // Add similar datasets for other categories if needed
         ]
       };
 
@@ -125,15 +153,14 @@
       const fashionCount = <%= categoryCounts.fashion || 0 %>; // Category count for fashion
       const booksCount = <%= categoryCounts.books || 0 %>; // Category count for books
       const sportsCount = <%= categoryCounts.sports || 0 %>; // Category count for sports
-      // Add similar variables for other categories if needed
 
       const chartData = {
-        labels: ['Categories'],
+        labels: ['Electronics', 'Furniture', 'Medicine', 'Fashion', 'Books', 'Sports'],
         datasets: [
           {
-            label: 'Sales',
-            data: [electronicsCount, furnitureCount, medicineCount, fashionCount, booksCount, sportsCount], // Include counts for other categories here
-            backgroundColor: ['#00FF00', '#FFFF00', '#FF0000'] // Green, Yellow, Red
+            label: 'Avalibale',
+            data: [electronicsCount, furnitureCount, medicineCount, fashionCount, booksCount, sportsCount],
+            backgroundColor: ['#00FF00', '#FFFF00', '#FF0000', '#0000FF', '#FF00FF', '#FFA500'] // Green, Yellow, Red, Blue, Purple, Orange
           }
         ]
       };
@@ -162,9 +189,68 @@
       });
     }
 
+    // Function to create the bar chart
+    function createBarChart() {
+      const canvas = document.getElementById('barChart');
+      const ctx = canvas.getContext('2d');
+
+      const electronicsCount = <%= categoryCounts.electronics || 0 %>; // Category count for electronics
+      const furnitureCount = <%= categoryCounts.furniture || 0 %>; // Category count for furniture
+      const medicineCount = <%= categoryCounts.medicine || 0 %>; // Category count for medicine
+      const fashionCount = <%= categoryCounts.fashion || 0 %>; // Category count for fashion
+      const booksCount = <%= categoryCounts.books || 0 %>; // Category count for books
+      const sportsCount = <%= categoryCounts.sports || 0 %>; // Category count for sports
+
+      const chartData = {
+        labels: ['Electronics', 'Furniture', 'Medicine', 'Fashion', 'Books', 'Sports'],
+        datasets: [
+          {
+            label: 'Avalibale',
+            data: [electronicsCount, furnitureCount, medicineCount, fashionCount, booksCount, sportsCount],
+            backgroundColor: ['#00FF00', '#FFFF00', '#FF0000', '#0000FF', '#FF00FF', '#FFA500'] // Green, Yellow, Red, Blue, Purple, Orange
+          }
+        ]
+      };
+
+      const options = {
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Products'
+            }
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Avalibale'
+            }
+          }
+        },
+        onClick: function(event) {
+          const activePoints = barChart.getElementsAtEvent(event);
+          if (activePoints.length > 0) {
+            const clickedIndex = activePoints[0].index;
+            const segmentLabel = chartData.labels[clickedIndex];
+            const value = chartData.datasets[0].data[clickedIndex];
+            alert(`Product: ${segmentLabel}\nCount: ${value}`);
+          }
+        }
+      };
+
+      barChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: options
+      });
+    }
+
     // Call the function to create the initial charts
     createLineChart();
     createCircleChart();
+    createBarChart();
   </script>
 </body>
 </html>
