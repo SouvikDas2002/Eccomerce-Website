@@ -16,7 +16,7 @@ app.set("view engine", "ejs")
 //*session management :
 
 app.use(
-  session({
+  session({ 
     saveUninitialized: true,
     resave: false,
     secret: "askjh34asdf345#@#43",
@@ -34,8 +34,8 @@ const adminRoute = require("./router/adminRoutes.js");
 // const paymentRoute = require('./router/paymentRoute.js');
 // app.use('/payment',paymentRoute);
 
-app.use("/users", userRoute);  //user route
-app.use("/admin", adminRoute); //admin route 
+app.use("/users",auth, userRoute);  //user route
+app.use("/admin",auth, adminRoute); //admin route 
 
 //*session-authentication 
 function auth(req, res, next) {
