@@ -86,7 +86,7 @@ app.post('/changepwd', (req, res) => {
   res.end();
 })
 
-data(function (res) {
+data(function (res) { 
   if (data) data = res;
   else {
     console.log("not valid user");

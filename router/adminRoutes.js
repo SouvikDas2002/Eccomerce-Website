@@ -106,6 +106,7 @@ route.post("/productupdate/:id",async(req,res)=>{
     if(details){
         let x=details;
         x.opr="Updated";
+        
         console.log(x);
     //     // console.log(x);
     //     let operation=await data.collection("history").insertOne(x);
@@ -135,7 +136,7 @@ route.get("/productdelete/:id",async(req,res)=>{
         console.log("Operation not performed");
     }
 })
-
+ 
 // search product
 
 route.get('/search',async(req,res)=>{
@@ -150,8 +151,8 @@ route.get('/search',async(req,res)=>{
 route.get("/orderdetails",async(req,res)=>{
     let ordersdetails=await data.collection("orders").find({}).toArray().then((x)=>{
         res.render('./admin/orderdetails',{orders:x}); 
-        console.log(x.name);
-    }) 
+        //console.log(x.name);
+    })  
 })     
     
 
