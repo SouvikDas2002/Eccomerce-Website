@@ -34,9 +34,8 @@ const adminRoute = require("./router/adminRoutes.js");
 // const paymentRoute = require('./router/paymentRoute.js');
 // app.use('/payment',paymentRoute);
 
-app.use("/users",auth, userRoute);  //user route
-app.use("/admin",auth, adminRoute); //admin route 
-
+app.use("/users", userRoute);  //user route
+app.use("/admin", adminRoute); //admin ro
 //*session-authentication 
 function auth(req, res, next) {
   if (req.session.email)
@@ -84,7 +83,7 @@ app.post('/changepwd', (req, res) => {
     console.log(req.body);
   }
   res.end();
-})
+})    
 
 data(function (res) { 
   if (data) data = res;
@@ -93,7 +92,9 @@ data(function (res) {
   }
 });
 
-
+app.get('/api',(req,res)=>{
+res.json({message:`api is running is`})
+})
 app.listen(PORT, (err) => {
   console.log(`Server running on port number ${PORT}`);
   console.log('Mongoose is connected');

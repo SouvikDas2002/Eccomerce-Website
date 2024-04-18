@@ -21,7 +21,7 @@ const storage=multer.diskStorage({
   const upload=multer({storage});
 
 
-// admin dashboard
+//*admin dashboard
 route.get("/dashboard", async (req, res) => {
     try {
         // Fetch all products from the database
@@ -52,7 +52,7 @@ route.get("/dashboard", async (req, res) => {
     }
 });
 
-//product details
+//*product details
 route.get("/productdetails",async(req,res)=>{  
     res.render('./admin/adminproductdetail',{detail:"Empty data"});
 })
@@ -61,7 +61,7 @@ route.post("/productdetails",async(req,res)=>{
     res.render('./admin/adminproductdetail',{detail:product});
 })
 
-//add product
+//*add product
 route.get("/productadd",async(req,res)=>{
     res.render("./admin/productadd");
 })
@@ -116,7 +116,7 @@ route.post("/productupdate/:id",async(req,res)=>{
 })  
 
 
-// delete product
+//*delete product
 route.get("/productdelete/:id",async(req,res)=>{
     // console.log(req.session.email);
     let delItem=await data.collection("products").findOneAndDelete({_id:new ObjectId(req.params.id)});
@@ -137,12 +137,17 @@ route.get("/productdelete/:id",async(req,res)=>{
     }
 })
  
-// search product
+//*search product
 
 route.get('/search',async(req,res)=>{
     let searchData = await data.collection('products').find({_id:new ObjectId( req.query.id) }).toArray();
     res.render('./admin/admindash',{productdetails:searchData,admin:req.session.email})
     // console.log(searchData);
+})
+
+//*profile :
+route.get('/profile',(req,res)=>{
+    res.render('../views/admin/profile.ejs');
 })
 
 
