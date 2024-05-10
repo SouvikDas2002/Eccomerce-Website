@@ -6,16 +6,18 @@
   <style>
     .chart-container {
       width: 1500px;
-      height: 500px;
+      height: 600px; /* Adjusted height for better visualization */
       border: 1px solid white;
       display: flex;
       justify-content: space-around;
       align-items: center;
+      flex-wrap: wrap; /* Added flex-wrap for responsive layout */
     }
 
-    .circle-chart {
+    .chart {
       width: 400px;
       height: 400px;
+      margin-bottom: 20px; /* Added margin for spacing between charts */
     }
 
     canvas {
@@ -27,11 +29,14 @@
   <img src="banner.jpg" alt="Banner Image" class="banner-img">
 
   <div class="chart-container">
-    <div class="circle-chart">
+    <div class="chart">
       <canvas id="circleChart" width="400" height="400"></canvas>
     </div>
-    <div class="line-chart">
-      <canvas id="lineChart" width="1200" height="400"></canvas>
+    <div class="chart">
+      <canvas id="lineChart" width="400" height="400"></canvas>
+    </div>
+    <div class="chart">
+      <canvas id="barChart" width="400" height="400"></canvas>
     </div>
   </div>
   
@@ -39,21 +44,66 @@
   <script>
     let lineChart;
     let circleChart;
+    let barChart;
 
     // Function to create the initial line chart
     function createLineChart() {
       const canvas = document.getElementById('lineChart');
       const ctx = canvas.getContext('2d');
 
+      const electronicsCount = <%= categoryCounts.electronics || 0 %>; // Category count for electronics
+      const furnitureCount = <%= categoryCounts.furniture || 0 %>; // Category count for furniture
+      const medicineCount = <%= categoryCounts.medicine || 0 %>; // Category count for medicine
+      const fashionCount = <%= categoryCounts.fashion || 0 %>; // Category count for fashion
+      const booksCount = <%= categoryCounts.books || 0 %>; // Category count for books
+      const sportsCount = <%= categoryCounts.sports || 0 %>; // Category count for sports
+
       const chartData = {
-        labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', 'Saturday'],
-        datasets: Object.keys(productData).map(product => ({
-          label: `Product ${product}`,
-          data: productData[product],
-          fill: false,
-          borderColor: getRandomColor(),
-          tension: 0.4
-        }))
+        labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        datasets: [
+          {
+            label: `Electronics`,
+            data: [0, electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount, electronicsCount],
+            borderColor: '#000',
+            backgroundColor: '#00FF00', // Green
+            tension: 0.4
+          },
+          {
+            label: `Furniture`,
+            data: [0, furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount, furnitureCount],
+            borderColor: '#000',
+            backgroundColor: '#FFFF00', // Yellow
+            tension: 0.4
+          },
+          {
+            label: `Medicine`,
+            data: [0, medicineCount, medicineCount, medicineCount, medicineCount, medicineCount, medicineCount],
+            borderColor: '#000',
+            backgroundColor: '#FF0000', // Red
+            tension: 0.4
+          },
+          {
+            label: `Fashion`,
+            data: [0, fashionCount, fashionCount, fashionCount, fashionCount, fashionCount, fashionCount],
+            borderColor: '#000',
+            backgroundColor: '#0000FF', // Blue
+            tension: 0.4
+          },
+          {
+            label: `Books`,
+            data: [0, booksCount, booksCount, booksCount, booksCount, booksCount, booksCount],
+            borderColor: '#000',
+            backgroundColor: '#FF00FF', // Purple
+            tension: 0.4
+          },
+          {
+            label: `Sports`,
+            data: [0, sportsCount, sportsCount, sportsCount, sportsCount, sportsCount, sportsCount],
+            borderColor: '#000',
+            backgroundColor: '#FFA500', // Orange
+            tension: 0.4
+          }
+        ]
       };
 
       const options = {
@@ -72,6 +122,16 @@
               text: 'Sales'
             }
           }
+        },
+        onClick: function(event) {
+          const activePoints = lineChart.getElementsAtEvent(event);
+          if (activePoints.length > 0) {
+            const clickedDatasetIndex = activePoints[0].datasetIndex;
+            const clickedIndex = activePoints[0].index;
+            const datasetLabel = lineChart.data.datasets[clickedDatasetIndex].label;
+            const value = lineChart.data.datasets[clickedDatasetIndex].data[clickedIndex];
+            alert(`Product: ${datasetLabel}\nCount: ${value}`);
+          }
         }
       };
 
@@ -86,14 +146,23 @@
     function createCircleChart() {
       const canvas = document.getElementById('circleChart');
       const ctx = canvas.getContext('2d');
+      
+      const electronicsCount = <%= categoryCounts.electronics || 0 %>; // Category count for electronics
+      const furnitureCount = <%= categoryCounts.furniture || 0 %>; // Category count for furniture
+      const medicineCount = <%= categoryCounts.medicine || 0 %>; // Category count for medicine
+      const fashionCount = <%= categoryCounts.fashion || 0 %>; // Category count for fashion
+      const booksCount = <%= categoryCounts.books || 0 %>; // Category count for books
+      const sportsCount = <%= categoryCounts.sports || 0 %>; // Category count for sports
 
       const chartData = {
-        labels: Object.keys(productData),
-        datasets: [{
-          label: 'Sales',
-          data: Object.keys(productData).map(product => productData[product][productData[product].length - 1]),
-          backgroundColor: Object.keys(productData).map(() => getRandomColor())
-        }]
+        labels: ['Electronics', 'Furniture', 'Medicine', 'Fashion', 'Books', 'Sports'],
+        datasets: [
+          {
+            label: 'Avalibale',
+            data: [electronicsCount, furnitureCount, medicineCount, fashionCount, booksCount, sportsCount],
+            backgroundColor: ['#00FF00', '#FFFF00', '#FF0000', '#0000FF', '#FF00FF', '#FFA500'] // Green, Yellow, Red, Blue, Purple, Orange
+          }
+        ]
       };
 
       const options = {
@@ -101,6 +170,14 @@
         plugins: {
           legend: {
             position: 'right',
+          }
+        },
+        onClick: function(event) {
+          const clickedSegment = circleChart.getElementsAtEvent(event)[0];
+          if (clickedSegment) {
+            const segmentLabel = circleChart.data.labels[clickedSegment.index];
+            const value = circleChart.data.datasets[0].data[clickedSegment.index];
+            alert(`Product: ${segmentLabel}\nCount: ${value}`);
           }
         }
       };
@@ -112,52 +189,68 @@
       });
     }
 
-    // Function to generate random color
-    function getRandomColor() {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
+    // Function to create the bar chart
+    function createBarChart() {
+      const canvas = document.getElementById('barChart');
+      const ctx = canvas.getContext('2d');
 
-    // Random data for initial sales trends (just for demonstration)
-    const productData = {
-      Electronic: [100, 120, 90, 110, 130, 95, 105],
-      Medicine: [80, 70, 90, 85, 100, 75, 95],
-      Sports: [110, 130, 120, 140, 115, 135, 125],
-      Dress: [70, 90, 85, 95, 80, 100, 75],
-      Furniture: [120, 100, 110, 105, 115, 125, 130]
-    };
+      const electronicsCount = <%= categoryCounts.electronics || 0 %>; // Category count for electronics
+      const furnitureCount = <%= categoryCounts.furniture || 0 %>; // Category count for furniture
+      const medicineCount = <%= categoryCounts.medicine || 0 %>; // Category count for medicine
+      const fashionCount = <%= categoryCounts.fashion || 0 %>; // Category count for fashion
+      const booksCount = <%= categoryCounts.books || 0 %>; // Category count for books
+      const sportsCount = <%= categoryCounts.sports || 0 %>; // Category count for sports
 
-    // Function to update chart data randomly
-    function updateChartData() {
-      Object.keys(productData).forEach(product => {
-        const newData = productData[product].map(value => {
-          const upOrDown = Math.random() >= 0.5 ? 1 : -1; // Randomly choose up or down
-          const change = Math.floor(Math.random() * 10) * upOrDown; // Randomly change value
-          return Math.max(0, value + change); // Ensure the value doesn't go below 0
-        });
-        productData[product] = newData;
+      const chartData = {
+        labels: ['Electronics', 'Furniture', 'Medicine', 'Fashion', 'Books', 'Sports'],
+        datasets: [
+          {
+            label: 'Avalibale',
+            data: [electronicsCount, furnitureCount, medicineCount, fashionCount, booksCount, sportsCount],
+            backgroundColor: ['#00FF00', '#FFFF00', '#FF0000', '#0000FF', '#FF00FF', '#FFA500'] // Green, Yellow, Red, Blue, Purple, Orange
+          }
+        ]
+      };
+
+      const options = {
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Products'
+            }
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Avalibale'
+            }
+          }
+        },
+        onClick: function(event) {
+          const activePoints = barChart.getElementsAtEvent(event);
+          if (activePoints.length > 0) {
+            const clickedIndex = activePoints[0].index;
+            const segmentLabel = chartData.labels[clickedIndex];
+            const value = chartData.datasets[0].data[clickedIndex];
+            alert(`Product: ${segmentLabel}\nCount: ${value}`);
+          }
+        }
+      };
+
+      barChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: options
       });
-
-      lineChart.data.datasets.forEach((dataset, index) => {
-        dataset.data = productData[Object.keys(productData)[index]];
-      });
-
-      circleChart.data.datasets[0].data = Object.keys(productData).map(product => productData[product][productData[product].length - 1]);
-
-      lineChart.update();
-      circleChart.update();
     }
 
     // Call the function to create the initial charts
     createLineChart();
     createCircleChart();
-
-    // Update chart data every 3 seconds
-    setInterval(updateChartData, 3000);
+    createBarChart();
   </script>
 </body>
 </html>

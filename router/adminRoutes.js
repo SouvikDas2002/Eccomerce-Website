@@ -22,11 +22,36 @@ const storage=multer.diskStorage({
 
 
 // admin dashboard
-route.get("/dashboard",async (req,res)=>{
-    let alldata=await data.collection("products").find({}).toArray();
-    res.render("./admin/admindash",{productdetails:alldata,admin:req.session.email});
+route.get("/dashboard", async (req, res) => {
+    try {
+        // Fetch all products from the database
+        let alldata = await data.collection("products").find({}).toArray();
 
-})
+        // Initialize an object to store category counts
+        let categoryCounts = {};
+
+        // Count occurrences of each category
+        alldata.forEach(product => {
+            const category = product.category;
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        });
+
+        // Log the category counts
+        console.log(categoryCounts);
+
+        // Render the dashboard view with product details and category counts
+        res.render("./admin/admindash", {
+            productdetails: alldata,
+            admin: req.session.email,
+            categoryCounts: categoryCounts
+        });
+    } catch (error) {
+        // Handle any errors that might occur during database operations
+        console.error("Error fetching data:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 //product details
 route.get("/productdetails",async(req,res)=>{  
     res.render('./admin/adminproductdetail',{detail:"Empty data"});
@@ -81,6 +106,7 @@ route.post("/productupdate/:id",async(req,res)=>{
     if(details){
         let x=details;
         x.opr="Updated";
+        
         console.log(x);
     //     // console.log(x);
     //     let operation=await data.collection("history").insertOne(x);
@@ -110,7 +136,7 @@ route.get("/productdelete/:id",async(req,res)=>{
         console.log("Operation not performed");
     }
 })
-
+ 
 // search product
 
 route.get('/search',async(req,res)=>{
@@ -125,8 +151,8 @@ route.get('/search',async(req,res)=>{
 route.get("/orderdetails",async(req,res)=>{
     let ordersdetails=await data.collection("orders").find({}).toArray().then((x)=>{
         res.render('./admin/orderdetails',{orders:x}); 
-        console.log(x.name);
-    }) 
+        //console.log(x.name);
+    })  
 })     
     
 
@@ -143,6 +169,8 @@ data(function(res){
 else
 console.log("got some issue");
 })
+
+
 
 // data=data.getData();
 module.exports=route;

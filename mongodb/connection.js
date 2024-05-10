@@ -1,6 +1,7 @@
 // mongodb connection
 const client = require("mongodb").MongoClient;
-const URL = "mongodb://127.0.0.1:27017";
+
+const URL = process.env.Mongo_URL;
 function connect(callback) {
   client
     .connect(URL)
