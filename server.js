@@ -13,10 +13,10 @@ const session = require("express-session");
 app.use(cookieparser());
 const oneday = 1000 * 60 * 60 * 24;
 app.set("view engine", "ejs")
-//*session management :
+//*session management : 
 
 app.use(
-  session({
+  session({ 
     saveUninitialized: true,
     resave: false,
     secret: "askjh34asdf345#@#43",
@@ -35,8 +35,7 @@ const adminRoute = require("./router/adminRoutes.js");
 // app.use('/payment',paymentRoute);
 
 app.use("/users", userRoute);  //user route
-app.use("/admin", adminRoute); //admin route 
-
+app.use("/admin", adminRoute); //admin ro
 //*session-authentication 
 function auth(req, res, next) {
   if (req.session.email)
@@ -84,7 +83,7 @@ app.post('/changepwd', (req, res) => {
     console.log(req.body);
   }
   res.end();
-})
+})    
 
 data(function (res) { 
   if (data) data = res;
@@ -93,7 +92,9 @@ data(function (res) {
   }
 });
 
-
+app.get('/api',(req,res)=>{
+res.json({message:`api is running is`})
+})
 app.listen(PORT, (err) => {
   console.log(`Server running on port number ${PORT}`);
   console.log('Mongoose is connected');

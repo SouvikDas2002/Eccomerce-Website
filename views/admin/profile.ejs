@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        .services {
+            padding: 3rem;
+            font-family: sans-serif;
+          }
+          
+          .container {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) [list-start] auto [list-end];
+            position: relative;
+            grid-template-rows: 4fr repeat(4, 1fr) 4fr;
+            gap: 1rem;
+          }
+          
+          li {
+            text-decoration: underline;
+            grid-column: list;
+          }
+          
+          .container li:first-child {
+            text-decoration: none;
+          }
+          
+          li a {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+          }
+          
+          img {
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            transition: 0.5s;
+            border-radius: 20px;
+            max-height: 300px;
+            opacity: 0.75;
+          }
+          
+          img:not(:hover, :focus) {
+            animation: z-index-fix 0.5s;
+          }
+          
+          .container li img {
+            grid-row: 1/7;
+            grid-column: var(--column);
+            align-self: center;
+          }
+          
+          li:has(:hover, :focus) a {
+            background: rgba(50, 250, 200, 1);
+          }
+          
+          li:has(:hover, :focus) img {
+            transform: scale(1.1);
+            max-height: 100%;
+            z-index: 2;
+            box-shadow: 50px 50px 50px 0px rgba(0, 0, 0, 0.2);
+            opacity: 1;
+          }
+          
+          @keyframes z-index-fix {
+            0%,
+            100% {
+              z-index: 1;
+            }
+          }
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class='services'>
+        <ul class='container'>
+          <li>
+            <h2>Our Services</h2>
+          </li>
+          <li style='--column: 1/2'><a>Product Services</a><img src='https://source.unsplash.com/random/?design'></li>
+          <li style='--column: 2/3'><a>Copywriting Services</a><img src='https://source.unsplash.com/random/?copywrite'></li>
+          <li style='--column: 3/4'><a>Management Services</a><img src='https://source.unsplash.com/random/?management'></li>
+          <li style='--column: 4/5'><a>Development Services</a><img src='https://source.unsplash.com/random/?development'></li>
+        </ul>
+      </div>
+</body>
+</html>

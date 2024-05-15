@@ -21,38 +21,29 @@ const storage=multer.diskStorage({
   const upload=multer({storage});
 
 
-// admin dashboard
+//*admin dashboard
 route.get("/dashboard", async (req, res) => {
     try {
-        // Fetch all products from the database
         let alldata = await data.collection("products").find({}).toArray();
-
-        // Initialize an object to store category counts
         let categoryCounts = {};
-
-        // Count occurrences of each category
         alldata.forEach(product => {
             const category = product.category;
             categoryCounts[category] = (categoryCounts[category] || 0) + 1;
         });
-
-        // Log the category counts
         console.log(categoryCounts);
 
-        // Render the dashboard view with product details and category counts
         res.render("./admin/admindash", {
             productdetails: alldata,
             admin: req.session.email,
             categoryCounts: categoryCounts
         });
     } catch (error) {
-        // Handle any errors that might occur during database operations
         console.error("Error fetching data:", error);
         res.status(500).send("Internal Server Error");
     }
 });
 
-//product details
+//*product details
 route.get("/productdetails",async(req,res)=>{  
     res.render('./admin/adminproductdetail',{detail:"Empty data"});
 })
@@ -61,7 +52,7 @@ route.post("/productdetails",async(req,res)=>{
     res.render('./admin/adminproductdetail',{detail:product});
 })
 
-//add product
+//*add product
 route.get("/productadd",async(req,res)=>{
     res.render("./admin/productadd");
 })
@@ -116,7 +107,7 @@ route.post("/productupdate/:id",async(req,res)=>{
 })  
 
 
-// delete product
+//*delete product
 route.get("/productdelete/:id",async(req,res)=>{
     // console.log(req.session.email);
     let delItem=await data.collection("products").findOneAndDelete({_id:new ObjectId(req.params.id)});
@@ -137,12 +128,23 @@ route.get("/productdelete/:id",async(req,res)=>{
     }
 })
  
-// search product
+//*search product
 
 route.get('/search',async(req,res)=>{
+    let alldata = await data.collection("products").find({}).toArray();
+    let categoryCounts = {};
+    alldata.forEach(product => {
+        const category = product.category;
+        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    });
     let searchData = await data.collection('products').find({_id:new ObjectId( req.query.id) }).toArray();
-    res.render('./admin/admindash',{productdetails:searchData,admin:req.session.email})
+    res.render('./admin/admindash',{productdetails:searchData,admin:req.session.email,categoryCounts:categoryCounts})
     // console.log(searchData);
+})
+
+//*profile :
+route.get('/profile',(req,res)=>{
+    res.render('../views/admin/profile.ejs');
 })
 
 
