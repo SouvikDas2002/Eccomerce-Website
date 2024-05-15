@@ -1,0 +1,74 @@
+[
+  {
+    "name": "ASUS ROG Strix G15 Elcro Punk",
+    "price": "85000",
+    "details": "The laptop sports a striking design with bold, futuristic aesthetics inspired by cyberpunk themes. Its exterior features sharp lines, angular patterns, and RGB lighting accents that give it a distinct and edgy appearance. The Elcro Punk edition particularly emphasizes a cyberpunk-inspired design language, with attention to detail in its visual elements.",
+    "stock": -1192,
+    "productimage": "laptop.jpg",
+    "category": "electronics",
+    "brand": "ASUS"
+  },
+  {
+    "name": "Dress",
+    "price": 4500,
+    "details": "It seems like you might be referring to \"wrong dress\" as a concept, rather than a specific dress. Could you please clarify what you mean? Are you asking about fashion faux pas, cultural misinterpretations, or something else entirely",
+    "stock": -190,
+    "productimage": "brooke-cagle-z1B9f48F5dc-unsplash",
+    "category": "fashion",
+    "brand": "Wrong"
+  },
+  {
+    "name": "Dress",
+    "price": 4000,
+    "details": "It seems like you might be referring to \"wrong dress\" as a concept, rather than a specific dress. Could you please clarify what you mean? Are you asking about fashion faux pas, cultural misinterpretations, or something else entirely",
+    "stock": "100",
+    "productimage": "dress.webp",
+    "category": "Select category",
+    "brand": "Wrong"
+  },
+  {
+    "name": "Stylish Sunglasses",
+    "price": 29.99,
+    "details": "These trendy sunglasses offer UV protection and a sleek design, perfect for sunny days out.",
+    "stock": 100,
+    "productimage": "sunglasses.jpg",
+    "category": "fashion",
+    "brand": "SunStyle"
+  },
+  {
+    "name": "Bestseller Mystery Novel",
+    "price": 14.99,
+    "details": "Dive into the gripping world of suspense with this acclaimed mystery novel, filled with unexpected twists and turns.",
+    "stock": 80,
+    "productimage": "mysterynovel.jpg",
+    "category": "books",
+    "author": "Jane Doe"
+  },
+  {
+    "name": "Wireless Bluetooth Earbuds",
+    "price": 49.99,
+    "details": "Experience freedom of movement with these wireless earbuds, featuring crisp sound quality and long battery life.",
+    "stock": 120,
+    "productimage": "bluetoothearbuds.jpg",
+    "category": "electronics",
+    "brand": "SoundSync"
+  },
+  {
+    "name": "Pain Relief Gel",
+    "price": 9.99,
+    "details": "Soothe sore muscles and joints with this fast-acting pain relief gel, formulated with natural ingredients.",
+    "stock": 200,
+    "productimage": "painreliefgel.jpg",
+    "category": "medicine",
+    "brand": "HealWell"
+  },
+  {
+    "name": "Durable Soccer Ball",
+    "price": 19.99,
+    "details": "Practice your skills on the field with this high-quality soccer ball, designed for optimal performance and durability.",
+    "stock": 50,
+    "productimage": "soccerball.jpg",
+    "category": "sports",
+    "brand": "SportPro"
+  }
+]

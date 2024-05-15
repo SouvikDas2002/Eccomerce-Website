@@ -74,7 +74,8 @@
         <div class="">
             <div class="profile-section">
               <div class="profile-picture" style="border: 1px solid black;">
-                <% if(userdetail.profilepic.slice(0,5)=="https"){%>
+                <%console.log(userdetail.profilepic)%>
+                <% if(userdetail.profilepic&&userdetail.profilepic.slice(0,5)=="https"){%>
                 <a href="#"><img src="<%= userdetail.profilepic %>" alt="profilepic"></a>
                 <%}else{%>
                   <a href="#"><img src="/<%= userdetail.profilepic %>" alt="profilepic"></a>

@@ -217,35 +217,98 @@ order.post("/multiple", async(req,res)=>{
 
 // * ORDER USER CREDENTIALS ----
 order.post("/:id", async (req, res) => {
-    const orderData =await data.collection("products").findOne({_id:new ObjectId(req.params.id)});
-    console.log(orderData);
-    let details = {
-    productimage:orderData.productimage,
-    productname:orderData.name,
-    name: req.body.name,
-    primaryEmail: req.session.email,
-    email: req.body.email,
-    phoneNumber: req.body.phoneNumber,
-    address: req.body.address,
-    city: req.body.city,
-    state: req.body.state,
-    zipCode: req.body.zipCode,
-    totalAmount: orderData.price,
-    quantity: req.body.quantity,
-    dateTime: new Date().toDateString(),
-  };
-  let neworder = await data.collection("orders").insertOne(details);
-//   console.log(neworder);
+  try {
+      // Get order data from the database
+      const orderData = await data.collection("products").findOne({_id: new ObjectId(req.params.id)});
+      console.log(orderData);
+      
+      // Prepare order details
+      let details = {
+          productimage: orderData.productimage,
+          productname: orderData.name,
+          name: req.body.name,
+          primaryEmail: req.session.email,
+          email: req.body.email,
+          phoneNumber: req.body.phoneNumber,
+          address: req.body.address,
+          city: req.body.city,
+          state: req.body.state,
+          zipCode: req.body.zipCode,
+          totalAmount: orderData.price,
+          quantity: req.body.quantity,
+          dateTime: new Date().toDateString(),
+      };
 
-  // update stock of a product
-  if (neworder) {
-    let product = await data.collection("products").findOne({ _id: new ObjectId(req.params.id) });
-    let stock = await data.collection("products").updateOne(product,
-        { $set: { stock: product.stock - details.quantity } },
-        { returnOriginal: false }
-      );
+      // Insert the order details into the database
+      let newOrder = await data.collection("orders").insertOne(details);
+
+      // Update stock of the product
+      if (newOrder) {
+          let product = await data.collection("products").findOne({_id: new ObjectId(req.params.id)});
+          let stock = await data.collection("products").updateOne(
+              {_id: new ObjectId(req.params.id)},
+              { $set: { stock: product.stock - details.quantity } },
+              { returnOriginal: false }
+          );
+      }
+
+      // Send email confirmation
+      const nodemailer = require("nodemailer");
+
+      // Create a Nodemailer transporter with Gmail SMTP settings
+      const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+              user: "sujoyghoshal.s@gmail.com",
+              pass: "cxsp uzwl foeb ftuz"
+          }
+      });
+
+      // Email message details
+      const mailOptions = {
+        from: "sujoyghoshal.s@gmail.com",
+        to: req.body.email,
+        subject: "Order Confirmation",
+        text: `Your order has been confirmed. Thank you for shopping with us!
+              
+              Quantity: ${req.body.quantity}
+              Total Amount: ${orderData.price}
+              
+              Contact Information:
+              Address: ${req.body.address}
+              City: ${req.body.city}
+              State: ${req.body.state}
+              
+              For any queries regarding your order, please feel free to contact us.`,
+        html: `<div style="font-family: Arial, sans-serif; border: 2px solid #ccc; background-color: rgba(255, 255, 255, 0.9); padding: 20px;">
+                  <h1 style="text-align: center; margin-bottom: 20px;">Shopsite</h1>
+                  <p>Your order has been confirmed. Thank you for shopping with us!</p>
+                  <p><strong>Quantity:</strong> ${req.body.quantity}</p>
+                  <p><strong>Total Amount:</strong> ${orderData.price}</p>
+                  <p><strong>Contact Information:</strong></p>
+                  <p><strong>Address:</strong> ${req.body.address}</p>
+                  <p><strong>City:</strong> ${req.body.city}</p>
+                  <p><strong>State:</strong> ${req.body.state}</p>
+                  <p style="margin-top: 20px;">For any queries regarding your order, please feel free to <a href="tel:8927673775">contact us</a>.</p>
+              </div>`
+    };
+
+
+      // Send the email
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.log("Error sending email:", error);
+          } else {
+              console.log("Email sent:", info.response);
+          }
+      });
+
+      // Render confirmation page
+      res.render('./user/confirmOrder');
+  } catch (error) {
+      console.error("Error processing order:", error);
+      res.status(500).send("An error occurred while processing your order.");
   }
-  res.render('./user/confirmOrder');
 });
 
 

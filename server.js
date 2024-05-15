@@ -13,7 +13,7 @@ const session = require("express-session");
 app.use(cookieparser());
 const oneday = 1000 * 60 * 60 * 24;
 app.set("view engine", "ejs")
-//*session management :
+//*session management : 
 
 app.use(
   session({ 
